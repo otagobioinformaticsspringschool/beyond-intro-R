@@ -1,0 +1,138 @@
+---
+title: "02-wrangle"
+format: html
+---
+
+## dplyr refresher with palmerpenguins
+
+This short refresher demonstrates select, filter, mutate, group_by, and summarise using the palmerpenguins dataset.
+
+```{r}
+library(tidyverse)
+library(palmerpenguins)
+
+# minimal clean dataset for examples
+penguins_clean <- penguins %>%
+  select(species, island, bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, sex) %>%
+  drop_na()
+```
+
+select — keep specific columns
+```{r}
+penguins_clean %>%
+  select(species, island, body_mass_g) %>%
+  slice_head(n = 6)
+```
+
+filter — keep rows matching conditions
+```{r}
+# filter by species and body mass > 4000 g
+penguins_clean %>%
+  filter(species == "Adelie", body_mass_g > 4000) %>%
+  slice_head(n = 6)
+```
+
+mutate — add or transform columns
+```{r}
+# add body mass in kg and bill ratio
+penguins_clean %>%
+  mutate(
+    body_mass_kg = body_mass_g / 1000,
+    bill_ratio = bill_length_mm / bill_depth_mm
+  ) %>%
+  slice_head(n = 6)
+```
+
+group_by + summarise — aggregate by groups
+```{r}
+# mean body mass and median flipper length per species
+penguins_clean %>%
+  group_by(species) %>%
+  summarise(
+    n = n(),
+    mean_body_mass = mean(body_mass_g, na.rm = TRUE),
+    median_flipper = median(flipper_length_mm, na.rm = TRUE)
+  ) %>%
+  arrange(desc(mean_body_mass))
+```
+```
+
+## Using across() and where()
+
+Use across() to apply the same transformation or summary to multiple columns; use where() to select columns by predicate (e.g., is.numeric, is.character).
+
+```{r}
+# 1) mutate with across + where: convert numeric measurements to centimeters
+penguins_clean %>%
+  mutate(across(where(is.numeric), ~ . / 10, .names = "{.col}_cm")) %>%
+  select(species, ends_with("_cm")) %>%
+  slice_head(n = 6)
+```
+
+```{r}
+# 2) mutate with across on character columns: normalize text
+penguins_clean %>%
+  mutate(across(where(is.character), ~ str_to_title(.))) %>%
+  slice_head(n = 6)
+```
+
+```{r}
+# 3) summarise with across: compute mean and sd for all numeric columns per species
+penguins_clean %>%
+  group_by(species) %>%
+  summarise(across(where(is.numeric),
+                   list(mean = ~ mean(.x, na.rm = TRUE),
+                        sd   = ~ sd(.x, na.rm = TRUE)),
+                   .names = "{.col}_{.fn}"))
+```
+
+```{r}
+# 4) summarise with across + select helpers: mean of bill measurements
+penguins_clean %>%
+  group_by(species) %>%
+  summarise(across(starts_with("bill_"), mean, na.rm = TRUE, .names = "mean_{.col}"))
+```
+
+# .names examples
+
+# 1) When you supply a named list of functions, {.fn} uses the names you provided
+
+
+```{r}
+penguins_clean %>%
+    group_by(species) %>%
+    summarise(
+        across(where(is.numeric),
+                     list(avg = ~ mean(.x, na.rm = TRUE),
+                                sdev = ~ sd(.x, na.rm = TRUE)),
+                     .names = "{.col}_{.fn}")   # e.g. bill_length_mm_avg, bill_length_mm_sdev
+    )
+```
+# 2) For a single function {.fn} defaults to the function name unless you hardcode a label
+
+```{r}
+penguins_clean %>%
+    group_by(species) %>%
+    summarise(
+        across(starts_with("bill_"),
+                     mean, na.rm = TRUE,
+                     .names = "mean_{.col}")   # e.g. mean_bill_length_mm
+    )
+```
+
+
+# 3) Use .names to add units/formatting when mutating multiple columns
+
+```{r}
+penguins_clean %>%
+    mutate(across(starts_with("bill_"),
+                                ~ .x / 10,
+                                .names = "{.col}_cm")) %>%   # e.g. bill_length_mm_cm
+    select(species, ends_with("_cm")) %>%
+    slice_head(n = 6)
+```
+
+Notes
+- across() replaced many uses of mutate_at()/summarise_at() and is the recommended tidyverse approach.
+- where() is handy when you want to target all numeric or character columns without naming them explicitly.
+- Use .names in across() to control output column naming and avoid collisions.

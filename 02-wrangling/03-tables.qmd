@@ -1,0 +1,165 @@
+
+---
+title: "03-tables"
+format: html
+---
+
+## Quick tutorial: gt with the palmerpenguins dataset
+
+This short tutorial shows common gt workflows: build a basic table, format numbers and labels, add color scales, and produce a grouped summary.
+
+
+## Setup
+
+Install and load packages (only once):
+
+```{r}
+# install.packages(c("gt", "palmerpenguins", "dplyr", "scales"))
+library(tidyverse)
+library(gt)
+library(palmerpenguins)
+library(scales)
+```
+
+1) Basic table
+Select a handful of columns and render a simple gt table.
+
+```{r}
+penguins_clean <- penguins %>%
+  select(species, island, bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, sex) %>%
+  drop_na()
+
+penguins_clean %>%
+  slice_head(n = 10) %>%
+  gt()
+```
+
+
+2) Format numbers and labels
+Use gt formatting helpers to control decimal places and column labels.
+
+
+```{r}
+penguins_clean %>%
+  slice_head(n = 10) %>%
+  gt() %>%
+  cols_label(
+    species = "Species",
+    island = "Island",
+    bill_length_mm = "Bill (mm)",
+    bill_depth_mm  = "Bill depth (mm)",
+    flipper_length_mm = "Flipper (mm)",
+    body_mass_g = "Body mass (g)",
+    sex = "Sex"
+  ) %>%
+  fmt_number(
+    columns = c("bill_length_mm", "bill_depth_mm", "flipper_length_mm"),
+    decimals = 1
+  ) %>%
+  fmt_number(
+    columns = c("body_mass_g"),
+    decimals = 0
+  )
+```
+
+
+3) Add a color scale
+Highlight body mass with a color ramp to make patterns visible.
+```{r}
+body_range <- range(penguins_clean$body_mass_g, na.rm = TRUE)
+
+penguins_clean %>%
+  slice_head(n = 10) %>%
+  gt() %>%
+  cols_label(body_mass_g = "Body mass (g)") %>%
+  data_color(
+    columns = c("body_mass_g"),
+    colors = col_numeric(
+      palette = c("lightyellow", "orange", "red"),
+      domain = body_range
+    )
+  ) %>%
+  fmt_number(columns = vars(body_mass_g), decimals = 0)
+```
+
+
+Using scales to create the colour mapper
+The function col_numeric() used above comes from the scales package (scales::col_numeric). It builds and returns a function that maps numeric values to colors; you pass that function to gt::data_color so gt can colour cells based on the numeric values. The two important arguments are palette (the colour stops — use hex codes or a perceptually uniform palette like viridis) and domain (the numeric range to map).
+
+Tip: construct the mapping function explicitly so you can inspect or reuse it, and prefer explicit domains (range(..., na.rm = TRUE)) and hex colours for reproducibility and accessibility.
+
+```{r}
+# create a reusable colour-mapping function (example using viridis)
+library(viridisLite)   # lightweight dependency for perceptual colours
+
+color_fn <- scales::col_numeric(
+  palette = viridisLite::viridis(5),                       # perceptually uniform palette
+  domain  = range(penguins_clean$body_mass_g, na.rm = TRUE) # explicit numeric domain
+)
+
+# inspect output for a few values
+color_fn(c(2700, 3500, 5000))
+
+# use the function with gt::data_color
+penguins_clean %>%
+  slice_head(n = 10) %>%
+  gt() %>%
+  cols_label(body_mass_g = "Body mass (g)") %>%
+  data_color(columns = c("body_mass_g"), colors = color_fn) %>%
+  fmt_number(columns = vars(body_mass_g), decimals = 0)
+```
+For other needs, scales also provides helpers like col_bin(), col_quantile(), and col_factor() to create binned, quantile-based, or categorical colour mappings. ``````
+
+
+
+
+4) Grouped summary (per species)
+Create a summary table grouped by species: mean body mass and median flipper length.
+
+
+```{r}
+summary_tbl <- penguins_clean %>%
+  group_by(species) %>%
+  summarise(
+    n = n(),
+    mean_body_mass = mean(body_mass_g, na.rm = TRUE),
+    median_flipper = median(flipper_length_mm, na.rm = TRUE)
+  ) %>%
+  ungroup()
+
+summary_tbl %>%
+  gt(rowname_col = "species") %>%
+  cols_label(
+    n = "Count",
+    mean_body_mass = "Mean body mass (g)",
+    median_flipper = "Median flipper (mm)"
+  ) %>%
+  fmt_number(columns = vars(mean_body_mass, median_flipper), decimals = 1)
+```
+
+
+5) Grouped details plus summary rows
+Show species groups with a grand summary row.
+
+
+```{r}
+penguins_clean %>%
+  group_by(species) %>%
+  slice_sample(n = 6) %>%    # small sample per species for display
+  ungroup() %>%
+  gt(groupname_col = "species") %>%
+  summary_rows(
+    groups = TRUE,
+    columns = c("body_mass_g"),
+    fns = list(
+      "avg (g)" = ~mean(., na.rm = TRUE),
+      "min (g)" = ~min(., na.rm = TRUE),
+      "max (g)" = ~max(., na.rm = TRUE)
+    )
+  ) %>%
+  grand_summary_rows(
+    columns = c("body_mass_g"),
+    fns = list("Overall avg (g)" = ~mean(., na.rm = TRUE))
+  ) %>%
+  fmt_number(columns = vars(body_mass_g), decimals = 0)
+```

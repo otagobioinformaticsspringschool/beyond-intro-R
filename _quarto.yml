@@ -1,0 +1,54 @@
+project:
+  type: website
+  output-dir: docs
+  resources:
+    - figures
+    
+website:
+  title: "Beyond intro R"
+  favicon: theme-images/GA-image-black-favicon.png
+  open-graph: true # https://quarto.org/docs/websites/website-tools.html#open-graph
+  sidebar:
+    style: "docked"
+    left:
+      - text: Home
+        href: index.qmd
+    contents:
+      - text: "Home"
+        href: index.qmd
+      - section: "Plotting"
+        href: 01-plotting-overview.qmd
+        contents:
+        - 01-plotting/01-plotting.qmd
+        - 01-plotting/02-multiplots.qmd
+      - section: "Data Manipulation"
+        href: 02-wrangling-overview.qmd
+        contents:
+          - 02-wrangling/01-tidy.qmd
+          - 02-wrangling/02-wrangle.qmd
+          - 02-wrangling/03-tables.qmd
+      - section: "Programming"
+        href: 03-programming-overview.qmd
+        contents:
+          - 03-programming/01-functions.qmd
+          - 03-programming/02-purrr.qmd
+          - 03-programming/03-env.qmd
+    
+    tools:
+      - icon: github
+        text: Github
+        href: https://github.com/otagobioinformaticsspringschool/beyond-intro-R
+
+
+format:
+  html:
+    code-tools: false
+    code-block-bg: true
+    code-block-title: true
+    code-overflow: wrap
+    page-layout: full
+    toc: true
+    toc-depth: 4
+    css: styles.css
+    navigation: true
+    page-navigation: true

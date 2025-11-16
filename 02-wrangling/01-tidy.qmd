@@ -1,0 +1,95 @@
+---
+title: "01-tidy"
+format: html
+---
+
+
+
+## Quick tidy tutorial: janitor + tidyr with palmerpenguins
+
+This brief tutorial shows common janitor helpers for cleaning tables and tidyr verbs for reshaping data using the raw palmerpenguins dataset.
+
+```{r}
+library(tidyverse)
+library(palmerpenguins)
+library(janitor)
+library(tidyr)
+```
+
+Janitor: quick cleaning and simple summaries
+- clean_names() makes column names consistent (snake_case).
+- remove_empty() drops empty rows/columns.
+- tabyl() creates simple frequency tables; adorn_* helpers add percentages/totals.
+
+```{r}
+# inspect raw data
+penguins_raw %>% slice_head(n = 6)
+
+# make names consistent
+penguins_clean_names <- penguins_raw %>% clean_names()
+names(penguins_clean_names)
+
+# rename culmen to bill
+penguins_clean_names <- penguins_clean_names %>% 
+  rename_with(.cols = contains("culmen"), .fn = \(x){str_replace(x, "culmen", "bill")})
+names(penguins_clean_names)
+
+# remove fully empty rows/columns (if present)
+penguins_pruned <- penguins_clean_names %>%
+  remove_empty("cols") %>%
+  remove_empty("rows")
+
+# frequency table: species by island with totals
+penguins_pruned %>%
+  tabyl(species, island) %>%
+  adorn_totals(where = "both")
+```
+
+Tidyr: reshape to long and back, separate/unite
+- pivot_longer() gathers measurement columns into key/value pairs (tidy long format).
+- pivot_wider() spreads long data back to wide form.
+- unite() combines columns; separate() splits them.
+
+```{r}
+# pivot longer: measurements to long format
+measurements_long <- penguins_pruned %>%
+  select(species, island, bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, sex) %>%
+  pivot_longer(
+    cols = c(bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g),
+    names_to = "measurement",
+    values_to = "value"
+  )
+
+measurements_long %>% slice_head(n = 8)
+
+# pivot wider: return to wide form
+measurements_long %>%
+  pivot_wider(names_from = measurement, values_from = value) %>%
+  slice_head(n = 6)
+
+# unite + separate example
+sp_island <- penguins_pruned %>%
+  unite("species_island", species, island, sep = " | ", remove = FALSE)
+
+sp_island %>% slice_head(n = 6)
+
+sp_island %>%
+  separate(species_island, into = c("sp", "isl"), sep = " \\| ") %>%
+  slice_head(n = 6)
+```
+
+Missing values and simple fixes
+- drop_na() removes rows with missing values in specific columns.
+- fill() carries values forward/backward when appropriate.
+
+```{r}
+# drop rows missing key measurements
+penguins_pruned %>% drop_na(bill_length_mm, body_mass_g) %>% slice_head(n = 6)
+
+# example: fill a grouped annotation (if there were grouping metadata to propagate)
+# penguins_pruned %>% arrange(species) %>% fill(some_group_col, .direction = "down")
+```
+
+Notes
+- Use janitor for quick table hygiene and simple frequency tables.
+- Use tidyr to make data tidy (long) for analysis and then pivot back for presentation.

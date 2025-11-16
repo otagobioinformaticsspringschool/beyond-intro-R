@@ -1,0 +1,70 @@
+---
+title: "Multi-plots"
+format: html
+---
+
+```{r}
+library(tidyverse)
+library(palmerpenguins)
+
+# brings 'penguins' dataset into name space
+attach(penguins)
+# brings 'penguins_raw' dataset into name space
+attach(penguins_raw)
+```
+
+
+The {patchwork} package is great for assembling multiple plots into a single plot
+
+Documentation for {patchwork}: https://patchwork.data-imaginist.com/index.html
+
+```{r}
+library(patchwork)
+```
+
+```{r}
+penguin_point_plot <- ggplot(
+  data = penguins,
+  mapping = aes(x = body_mass_g,
+                y = flipper_length_mm,
+                colour = island)
+) + 
+  geom_point() +
+  ggtitle("Plot 1")
+  
+
+penguin_box_plot <- ggplot(
+  data = penguins,
+  mapping = aes(x = species,
+                y = flipper_length_mm,
+                )
+) + 
+  geom_boxplot() +
+  ggtitle("Plot2")
+```
+
+Different ways of combining plots
+
+```{r}
+penguin_point_plot + penguin_box_plot
+```
+
+```{r}
+penguin_point_plot / penguin_box_plot
+```
+
+
+Including a table
+
+```{r}
+library(gt)
+penguin_tab <- penguins %>% 
+  group_by(species) %>% 
+  summarise(n = n()) %>% 
+  gt()  
+```
+
+```{r}
+penguin_point_plot + penguin_tab
+```
+
