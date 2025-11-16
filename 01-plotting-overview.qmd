@@ -1,5 +1,93 @@
 ---
-title: "01-potting"
+title: "Plotting Overview and Refresher"
 format: html
 ---
 
+
+Resources:
+
+- [Data Carpentry - Data Analysis and Visualisation for Ecologists](https://datacarpentry.github.io/R-ecology-lesson/visualizing-ggplot.html)
+- [R for Data Science - Visualisation](https://r4ds.hadley.nz/data-visualize.html)
+
+
+
+## Refresher
+
+
+A more in depth intro to ggplot2 is covered in [Data Carpentry - Data Analysis and Visualisation for Ecologists](https://datacarpentry.github.io/R-ecology-lesson/visualizing-ggplot.html). This is a brief overview/refresher.
+
+
+### Setup
+
+```{r}
+#| message: false
+
+library(tidyverse)
+library(palmerpenguins)
+
+# brings 'penguins' dataset into name space
+attach(penguins)
+# brings 'penguins_raw' dataset into name space
+attach(penguins_raw)
+```
+
+### Basics of Plotting with {ggplot2}
+
+The basic premise of ggplot is that there are 3 main components to a plot:
+
+-   the *data*
+-   a mapping of the data to *aesthetics* of the plot e.g. x or y axes
+    -   this can be done for all layers of a plot at once by including it within the `aes()` within the `ggplot()` function
+    -   or to specific layers by using `aes()` within a *geom* function
+-   a *geometric* representation of the data e.g points, bars, boxplot
+
+and the plots are built in layers
+
+```{r}
+ggplot(
+  data = penguins,
+  mapping = aes(x = body_mass_g,
+                y = flipper_length_mm)
+) +
+  geom_point()
+```
+
+And we can modify the properties of layer to a specific value
+
+```{r}
+
+ggplot(
+  data = penguins,
+  mapping = aes(x = body_mass_g,
+                y = flipper_length_mm)
+) +
+  geom_point(colour = "blue")
+```
+
+Or the property can be mapped back to the data - when this is the case we use `aes()`
+
+```{r}
+
+ggplot(
+  data = penguins,
+  mapping = aes(x = body_mass_g,
+                y = flipper_length_mm)
+) +
+  geom_point(mapping = aes(colour = island))
+```
+
+Plots can also be built incrementally by assignment
+
+```{r}
+penguin_plot <- ggplot(
+  data = penguins,
+  mapping = aes(x = body_mass_g,
+                y = flipper_length_mm,
+                colour = island)
+) 
+
+penguin_plot <- penguin_plot +
+  geom_point()
+
+penguin_plot
+```

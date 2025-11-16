@@ -3,7 +3,11 @@ title: "Multi-plots"
 format: html
 ---
 
+## Setup
+
 ```{r}
+#| message: false
+
 library(tidyverse)
 library(palmerpenguins)
 
@@ -13,6 +17,8 @@ attach(penguins)
 attach(penguins_raw)
 ```
 
+
+## Multi-plots with Patchwork
 
 The {patchwork} package is great for assembling multiple plots into a single plot
 
@@ -68,3 +74,4 @@ penguin_tab <- penguins %>%
 penguin_point_plot + penguin_tab
 ```
 
+### Controlling Layouts

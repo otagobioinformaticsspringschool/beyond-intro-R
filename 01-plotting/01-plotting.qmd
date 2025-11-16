@@ -1,10 +1,13 @@
 ---
-title: "Plotting"
+title: "Plot Customisation"
 editor: visual
 ---
 
+## Setup
 
 ```{r}
+#| message: false
+
 library(tidyverse)
 library(palmerpenguins)
 
@@ -14,57 +17,8 @@ attach(penguins)
 attach(penguins_raw)
 ```
 
+The base plot we'll use to look at customisations
 
-## Refresher
-
-A more in depth intro to ggplot2 is covered in [Data Carpentry - Data Analysis and Visualisation for Ecologists](https://datacarpentry.github.io/R-ecology-lesson/visualizing-ggplot.html). This is a brief overview/refresher.
-
-The basic premise of ggplot is that there are 3 main components to a plot:
-
-- the _data_
-- a mapping of the data to _aesthetics_ of the plot e.g. x or y axes
-    - this can be done for all layers of a plot at once by including it within the `aes()` within the  `ggplot()` function
-    - or to specific layers by using `aes()` within a _geom_ function
-- a _geometric_ representation of the data e.g points, bars, boxplot
-
-and the plots are built in layers
-
-```{r}
-ggplot(
-  data = penguins,
-  mapping = aes(x = body_mass_g,
-                y = flipper_length_mm)
-) +
-  geom_point()
-```
-
-
-
-And we can modify the properties of layer to a specific value
-
-
-```{r}
-
-ggplot(
-  data = penguins,
-  mapping = aes(x = body_mass_g,
-                y = flipper_length_mm)
-) +
-  geom_point(colour = "blue")
-```
-
-Or the property can be mapped back to the data - when this is the case we use `aes()`
-
-```{r}
-
-ggplot(
-  data = penguins,
-  mapping = aes(x = body_mass_g,
-                y = flipper_length_mm)
-) +
-  geom_point(mapping = aes(colour = island))
-```
-Plots can also be built incrementally by assignment
 ```{r}
 penguin_plot <- ggplot(
   data = penguins,
@@ -79,11 +33,11 @@ penguin_plot <- penguin_plot +
 penguin_plot
 ```
 
+## Theming and Labels
 
-### Theming and Labels
 
-- `labs()` can be used to alter the labels such as title, subtitle, x, and y.
-- `theme()` is used to alther elements of the theme
+-   `labs()` can be used to alter the labels such as title, subtitle, x, and y.
+-   `theme()` is used to alther elements of the theme
 
 ```{r}
 penguin_plot <- penguin_plot +
@@ -94,13 +48,13 @@ penguin_plot <- penguin_plot +
 penguin_plot +
   theme(panel.grid.minor = element_blank())
 ```
-Or you can apply how pre-defined themes e.g. `theme_bw()
+
+Or you can apply how pre-defined themes e.g. \`theme_bw()
 
 ```{r}
 penguin_plot +
   theme_bw()
 ```
-
 
 ## Customising Plots
 
@@ -116,9 +70,6 @@ penguin_plot +
     values = c(Biscoe = "purple", Dream = "brown", Torgersen = "yellow")
   )
 ```
-
-
-
 
 ```{r}
 ggplot(penguins, aes(x = body_mass_g, y = flipper_length_mm, colour = species)) +
@@ -152,15 +103,9 @@ ggplot(df_line, aes(x = year, y = mean_body_mass, colour = species, group = spec
   theme_minimal()
 ```
 
-
-
 ## Exercises
 
-Exercise 1 — Scatter plot & legend styling
-Task: Create a scatter plot of body_mass_g (x) vs flipper_length_mm (y), colour points by species, add a title and axis labels, apply theme_bw(), set a manual colour scale (use three hex colours), and move the legend to the top with a single-row layout.
-Success criteria: plot shows colored points by species, custom colours used, title & axis labels present, legend at top in one row.
-Hint / starter code:
-
+Exercise 1 — Scatter plot & legend styling Task: Create a scatter plot of body_mass_g (x) vs flipper_length_mm (y), colour points by species, add a title and axis labels, apply theme_bw(), set a manual colour scale (use three hex colours), and move the legend to the top with a single-row layout. Success criteria: plot shows colored points by species, custom colours used, title & axis labels present, legend at top in one row. Hint / starter code:
 
 ```{r}
 #| eval: false
@@ -177,11 +122,7 @@ ggplot(penguins, aes(x = body_mass_g, y = flipper_length_mm, colour = species)) 
   theme(legend.position = "top")
 ```
 
-Exercise 2 — Aggregation + line plot with legend overrides
-Task: Compute mean body mass per species per year, plot it as a line chart with points (one line per species), and make the legend show thicker lines than plotted in the panel (use guides override.aes).
-Success criteria: time series lines with points for each species, legend shows thicker line samples than panel lines.
-Hint / starter code:
-
+Exercise 2 — Aggregation + line plot with legend overrides Task: Compute mean body mass per species per year, plot it as a line chart with points (one line per species), and make the legend show thicker lines than plotted in the panel (use guides override.aes). Success criteria: time series lines with points for each species, legend shows thicker line samples than panel lines. Hint / starter code:
 
 ```{r}
 #| eval: false
@@ -198,11 +139,7 @@ ggplot(df_line, aes(x = year, y = mean_body_mass, colour = species, group = spec
   theme_minimal()
 ```
 
-Exercise 3 — Facets, handling missing values, and saving output
-Task: Make a scatter plot of bill_length_mm vs bill_depth_mm, colour by sex, facet by island, remove rows with missing bill measurements before plotting, set axis limits to focus on typical ranges, and save the plot to "plots/bill_scatter.png" at 300 dpi.
-Success criteria: facets by island created, missing rows removed, axis limits set, plot saved to disk.
-Hint / starter code:
-
+Exercise 3 — Facets, handling missing values, and saving output Task: Make a scatter plot of bill_length_mm vs bill_depth_mm, colour by sex, facet by island, remove rows with missing bill measurements before plotting, set axis limits to focus on typical ranges, and save the plot to "plots/bill_scatter.png" at 300 dpi. Success criteria: facets by island created, missing rows removed, axis limits set, plot saved to disk. Hint / starter code:
 
 ```{r}
 #| eval: false
@@ -221,11 +158,8 @@ penguins %>%
 ggsave("plots/bill_scatter.png", p, dpi = 300, width = 8, height = 5)
 ```
 
-
 ## Possible solutions
 
-
-
 ```{r}
 # -------------------------
 # Possible solutions
@@ -329,4 +263,3 @@ p <- ggplot(ex3_df, aes(x = bill_length_mm, y = bill_depth_mm, colour = sex)) +
 
 #ggsave("plots/bill_scatter.png", p, dpi = 300, width = 8, height = 5)
 ```
-

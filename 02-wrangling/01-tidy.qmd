@@ -3,20 +3,25 @@ title: "01-tidy"
 format: html
 ---
 
-
-
-## Quick tidy tutorial: janitor + tidyr with palmerpenguins
-
-This brief tutorial shows common janitor helpers for cleaning tables and tidyr verbs for reshaping data using the raw palmerpenguins dataset.
+## Setup
 
 ```{r}
+#| message: false
+
 library(tidyverse)
 library(palmerpenguins)
 library(janitor)
 library(tidyr)
 ```
 
+## Quick tidy tutorial: janitor + tidyr with palmerpenguins
+
+This brief tutorial shows common janitor helpers for cleaning tables and tidyr verbs for reshaping data using the raw palmerpenguins dataset.
+
+### Janitor
+
 Janitor: quick cleaning and simple summaries
+
 - clean_names() makes column names consistent (snake_case).
 - remove_empty() drops empty rows/columns.
 - tabyl() creates simple frequency tables; adorn_* helpers add percentages/totals.
@@ -45,7 +50,10 @@ penguins_pruned %>%
   adorn_totals(where = "both")
 ```
 
+### Tidyr
+
 Tidyr: reshape to long and back, separate/unite
+
 - pivot_longer() gathers measurement columns into key/value pairs (tidy long format).
 - pivot_wider() spreads long data back to wide form.
 - unite() combines columns; separate() splits them.
@@ -79,6 +87,7 @@ sp_island %>%
 ```
 
 Missing values and simple fixes
+
 - drop_na() removes rows with missing values in specific columns.
 - fill() carries values forward/backward when appropriate.
 
@@ -91,5 +100,6 @@ penguins_pruned %>% drop_na(bill_length_mm, body_mass_g) %>% slice_head(n = 6)
 ```
 
 Notes
+
 - Use janitor for quick table hygiene and simple frequency tables.
 - Use tidyr to make data tidy (long) for analysis and then pivot back for presentation.
