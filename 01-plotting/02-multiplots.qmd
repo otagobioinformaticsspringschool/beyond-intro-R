@@ -75,3 +75,46 @@ penguin_point_plot + penguin_tab
 ```
 
 ### Controlling Layouts
+
+
+Explain how to control layout (rows/columns, relative sizes, and custom designs) with {patchwork}. Below are short examples using the plots and table defined earlier.
+
+- Use plot_layout() to set number of columns and relative widths/heights.
+- Use parentheses to group stacked/side-by-side operators when you want to apply layout options to the combined result.
+- Use a design string to create more complex placements (one plot spanning multiple cells).
+- Collect legends with guides = "collect" and add a shared title with plot_annotation().
+
+
+```{r}
+# example plots
+p1 <- ggplot(penguins, aes(x = body_mass_g, y = flipper_length_mm, colour = species)) +
+  geom_point(na.rm = TRUE) + ggtitle("Mass vs Flipper")
+
+p2 <- ggplot(penguins, aes(x = species, y = flipper_length_mm)) +
+  geom_boxplot(na.rm = TRUE) + ggtitle("Flipper by species")
+
+p3 <- ggplot(penguins, aes(x = island, y = body_mass_g)) +
+  geom_violin(na.rm = TRUE) + ggtitle("Mass by island")
+
+# 1) Two-column layout where p1 takes left column and p2/p3 stack on the right
+(p1 | (p2 / p3)) +
+  plot_layout(widths = c(2, 1)) +
+  plot_annotation(title = "p1 large left, p2 & p3 stacked right")
+
+# 2) Grid layout with relative widths/heights and a shared legend collected
+(p1 + p2 + p3) +
+  plot_layout(ncol = 2, widths = c(2, 1), heights = c(1, 1), guides = "collect") + #&
+  # theme(legend.position = "bottom") +
+  plot_annotation(tag_levels = "A")
+
+# 3) Complex placement using a design string (A spans 3 cells in row 1)
+design <- "
+AAA
+B#C
+"
+p1 + p2 + p3 + plot_layout(design = design) +
+  plot_annotation(title = "Design string layout")
+
+```
+
+Notes: use widths/heights for relative sizing, guides = "collect" to share legends, and a design string for precise cell placement.

@@ -1,0 +1,16 @@
+---
+title: "Custom Functions"
+format: html
+---
+
+
+## The `function` Function
+
+Function template:
+``````{r}
+#| eval: false
+
+name <- function(variables) {
+  # function body
+}
+```

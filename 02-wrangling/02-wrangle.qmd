@@ -93,7 +93,7 @@ penguins_clean %>%
   summarise(across(starts_with("bill_"), mean, na.rm = TRUE, .names = "mean_{.col}"))
 ```
 
-# .names examples
+## .names examples
 
 # 1) When you supply a named list of functions, {.fn} uses the names you provided
 
@@ -108,7 +108,8 @@ penguins_clean %>%
                      .names = "{.col}_{.fn}")   # e.g. bill_length_mm_avg, bill_length_mm_sdev
     )
 ```
-# 2) For a single function {.fn} defaults to the function name unless you hardcode a label
+
+2) For a single function {.fn} defaults to the function name unless you hardcode a label
 
 ```{r}
 penguins_clean %>%
@@ -121,7 +122,7 @@ penguins_clean %>%
 ```
 
 
-# 3) Use .names to add units/formatting when mutating multiple columns
+3) Use .names to add units/formatting when mutating multiple columns
 
 ```{r}
 penguins_clean %>%

@@ -218,14 +218,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </div>
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
- <span class="menu-text">03-programming/01-functions.qmd</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../03-programming/01-functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Custom Functions</span></a>
+  </div>
+</li>
           <li class="sidebar-item">
- <span class="menu-text">03-programming/02-purrr.qmd</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../03-programming/02-purrr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Mapping Functions</span></a>
+  </div>
+</li>
           <li class="sidebar-item">
- <span class="menu-text">03-programming/03-env.qmd</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../03-programming/03-env.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R Configuration</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -241,8 +250,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#dplyr-refresher-with-palmerpenguins" id="toc-dplyr-refresher-with-palmerpenguins" class="nav-link active" data-scroll-target="#dplyr-refresher-with-palmerpenguins">dplyr refresher with palmerpenguins</a></li>
   <li><a href="#names-examples" id="toc-names-examples" class="nav-link" data-scroll-target="#names-examples">.names examples</a></li>
   <li><a href="#when-you-supply-a-named-list-of-functions-.fn-uses-the-names-you-provided" id="toc-when-you-supply-a-named-list-of-functions-.fn-uses-the-names-you-provided" class="nav-link" data-scroll-target="#when-you-supply-a-named-list-of-functions-.fn-uses-the-names-you-provided">1) When you supply a named list of functions, {.fn} uses the names you provided</a></li>
-  <li><a href="#for-a-single-function-.fn-defaults-to-the-function-name-unless-you-hardcode-a-label" id="toc-for-a-single-function-.fn-defaults-to-the-function-name-unless-you-hardcode-a-label" class="nav-link" data-scroll-target="#for-a-single-function-.fn-defaults-to-the-function-name-unless-you-hardcode-a-label">2) For a single function {.fn} defaults to the function name unless you hardcode a label</a></li>
-  <li><a href="#use-.names-to-add-unitsformatting-when-mutating-multiple-columns" id="toc-use-.names-to-add-unitsformatting-when-mutating-multiple-columns" class="nav-link" data-scroll-target="#use-.names-to-add-unitsformatting-when-mutating-multiple-columns">3) Use .names to add units/formatting when mutating multiple columns</a></li>
   </ul>
 </nav>
     </div>
@@ -470,8 +477,8 @@ Supply arguments directly to `.fns` through an anonymous function instead.
 </div>
 </div>
 </section>
-<section id="names-examples" class="level1">
-<h1>.names examples</h1>
+<section id="names-examples" class="level2">
+<h2 class="anchored" data-anchor-id="names-examples">.names examples</h2>
 </section>
 <section id="when-you-supply-a-named-list-of-functions-.fn-uses-the-names-you-provided" class="level1">
 <h1>1) When you supply a named list of functions, {.fn} uses the names you provided</h1>
@@ -495,9 +502,9 @@ Supply arguments directly to `.fns` through an anonymous function instead.
 #   flipper_length_mm_sdev &lt;dbl&gt;, body_mass_g_avg &lt;dbl&gt;, body_mass_g_sdev &lt;dbl&gt;</code></pre>
 </div>
 </div>
-</section>
-<section id="for-a-single-function-.fn-defaults-to-the-function-name-unless-you-hardcode-a-label" class="level1">
-<h1>2) For a single function {.fn} defaults to the function name unless you hardcode a label</h1>
+<ol start="2" type="1">
+<li>For a single function {.fn} defaults to the function name unless you hardcode a label</li>
+</ol>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>penguins_clean <span class="sc">%&gt;%</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(species) <span class="sc">%&gt;%</span></span>
@@ -515,9 +522,9 @@ Supply arguments directly to `.fns` through an anonymous function instead.
 3 Gentoo                   47.6               15.0</code></pre>
 </div>
 </div>
-</section>
-<section id="use-.names-to-add-unitsformatting-when-mutating-multiple-columns" class="level1">
-<h1>3) Use .names to add units/formatting when mutating multiple columns</h1>
+<ol start="3" type="1">
+<li>Use .names to add units/formatting when mutating multiple columns</li>
+</ol>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>penguins_clean <span class="sc">%&gt;%</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"bill_"</span>),</span>
