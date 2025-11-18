@@ -1,6 +1,6 @@
 
 ---
-title: "03-tables"
+title: "Better tables with {gt}"
 format: html
 ---
 

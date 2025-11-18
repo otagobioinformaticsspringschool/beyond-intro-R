@@ -5,4 +5,75 @@ editor: visual
 ---
 
 
-This workshop is under construction
+The goal of this workshop is to build upon "introductory content" that is found in other workshops such as [Data Carpentry - Data Analysis and Visualisation for Ecologists](https://datacarpentry.github.io/R-ecology-lesson/).
+
+The workshop itself is a bit piecemeal and cover a range of topics
+
+The key themes of the workshop are to:
+
+- Cover more about plot customisation using ggplot2
+- Look at some of the useful helper functions for data wrangling that exist (mostly in the tidyverse)
+- Introduce building and applying custom functions
+- And some setup/configuration settings that can be useful
+
+
+The main reference material is the package documentation itself
+
+## R Syntax Refresher
+
+
+### Maths
+
+Mathematical operations:
+
+- `+` and `-` for addition and subtraction
+- `*`, `/`, and `%%` for multiplication, division, and remainder division
+- `^` for exponentiation
+- `(` and `)` for bracketing
+- Precedence of operators follows BEDMAS
+```{r}
+1 + 6
+5 - 3
+2 * 9
+8 / 4
+9 %% 2
+2 ^ 3
+```
+
+Assignment
+
+```{r}
+a <- 7
+
+a
+```
+
+Vectors
+
+- must be all of the same type
+    - numeric
+    - character
+    - boolean
+```{r}
+b <-c(2, 5, 6)
+```
+
+Indexing (starts from 1)
+```{r}
+# 3rd item
+b[3]
+
+# Exclude the 2nd item
+b[-2]
+```
+
+Subsetting with by comparison
+
+```{r}
+# items in b larger than 3
+b[ b > 3]
+
+# items in b that are equal to 6
+b[ b == 6]
+```
+

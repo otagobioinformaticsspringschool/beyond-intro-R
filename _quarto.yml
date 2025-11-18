@@ -24,8 +24,8 @@ website:
       - section: "Data Manipulation"
         href: 02-wrangling-overview.qmd
         contents:
-          - 02-wrangling/01-tidy.qmd
-          - 02-wrangling/02-wrangle.qmd
+          - 02-wrangling/01-wrangle.qmd
+          - 02-wrangling/02-join.qmd
           - 02-wrangling/03-tables.qmd
       - section: "Programming"
         href: 03-programming-overview.qmd

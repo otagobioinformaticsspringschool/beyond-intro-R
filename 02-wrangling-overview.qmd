@@ -1,4 +1,62 @@
 ---
 title: "Data Wrangling"
-editor: visual
+format: html
 ---
+
+
+In wrangling we're looking mostly at functions that come from {dplyr}
+
+
+## dplyr refresher with palmerpenguins
+
+This short refresher demonstrates select, filter, mutate, group_by, and summarise using the palmerpenguins dataset.
+
+```{r}
+#| message: false
+library(tidyverse)
+library(palmerpenguins)
+
+# minimal clean dataset for examples
+penguins_clean <- penguins %>%
+  select(species, island, bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, sex) %>%
+  drop_na()
+```
+
+select — keep specific columns
+```{r}
+penguins_clean %>%
+  select(species, island, body_mass_g) %>%
+  slice_head(n = 6)
+```
+
+filter — keep rows matching conditions
+```{r}
+# filter by species and body mass > 4000 g
+penguins_clean %>%
+  filter(species == "Adelie", body_mass_g > 4000) %>%
+  slice_head(n = 6)
+```
+
+mutate — add or transform columns
+```{r}
+# add body mass in kg and bill ratio
+penguins_clean %>%
+  mutate(
+    body_mass_kg = body_mass_g / 1000,
+    bill_ratio = bill_length_mm / bill_depth_mm
+  ) %>%
+  slice_head(n = 6)
+```
+
+group_by + summarise — aggregate by groups
+```{r}
+# mean body mass and median flipper length per species
+penguins_clean %>%
+  group_by(species) %>%
+  summarise(
+    n = n(),
+    mean_body_mass = mean(body_mass_g, na.rm = TRUE),
+    median_flipper = median(flipper_length_mm, na.rm = TRUE)
+  ) %>%
+  arrange(desc(mean_body_mass))
+```

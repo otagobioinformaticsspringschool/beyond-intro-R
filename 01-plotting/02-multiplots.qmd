@@ -28,6 +28,8 @@ Documentation for {patchwork}: https://patchwork.data-imaginist.com/index.html
 library(patchwork)
 ```
 
+Lets create some example plots that we can call upon
+
 ```{r}
 penguin_point_plot <- ggplot(
   data = penguins,
@@ -37,23 +39,32 @@ penguin_point_plot <- ggplot(
 ) + 
   geom_point() +
   ggtitle("Plot 1")
-  
+
 
 penguin_box_plot <- ggplot(
   data = penguins,
   mapping = aes(x = species,
-                y = flipper_length_mm,
-                )
+                y = flipper_length_mm)
 ) + 
   geom_boxplot() +
   ggtitle("Plot2")
 ```
 
-Different ways of combining plots
+### Different ways of combining plots
+
+side by side using `+`
 
 ```{r}
 penguin_point_plot + penguin_box_plot
 ```
+Or use `|` to create columns in the layout
+
+
+```{r}
+penguin_point_plot | penguin_box_plot
+```
+
+One over the other using `/`
 
 ```{r}
 penguin_point_plot / penguin_box_plot
@@ -74,10 +85,10 @@ penguin_tab <- penguins %>%
 penguin_point_plot + penguin_tab
 ```
 
-### Controlling Layouts
+### Controlling Layouts with `plot_layout()`
 
 
-Explain how to control layout (rows/columns, relative sizes, and custom designs) with {patchwork}. Below are short examples using the plots and table defined earlier.
+The {patchwork} package has the ability to control layouts through several methods (rows/columns, relative sizes, and custom designs). Below are short examples using the plots and table defined earlier.
 
 - Use plot_layout() to set number of columns and relative widths/heights.
 - Use parentheses to group stacked/side-by-side operators when you want to apply layout options to the combined result.
@@ -95,24 +106,52 @@ p2 <- ggplot(penguins, aes(x = species, y = flipper_length_mm)) +
 
 p3 <- ggplot(penguins, aes(x = island, y = body_mass_g)) +
   geom_violin(na.rm = TRUE) + ggtitle("Mass by island")
+```
 
-# 1) Two-column layout where p1 takes left column and p2/p3 stack on the right
+
+1) An example two-column layout where p1 takes left column and p2/p3 stack on the right
+
+- `widths` is specifying the width of each column
+```{r}
 (p1 | (p2 / p3)) +
   plot_layout(widths = c(2, 1)) +
   plot_annotation(title = "p1 large left, p2 & p3 stacked right")
+```
 
-# 2) Grid layout with relative widths/heights and a shared legend collected
+2) Grid layout with relative widths/heights and a shared legend collected
+
+```{r}
+
 (p1 + p2 + p3) +
   plot_layout(ncol = 2, widths = c(2, 1), heights = c(1, 1), guides = "collect") + #&
   # theme(legend.position = "bottom") +
   plot_annotation(tag_levels = "A")
+```
 
-# 3) Complex placement using a design string (A spans 3 cells in row 1)
+
+3) Complex placement using a design string (A spans 3 cells in row 1)
+
+- `#` is used as a 'spacer' or empty plot
+
+```{r}
+
 design <- "
 AAA
 B#C
 "
 p1 + p2 + p3 + plot_layout(design = design) +
+  plot_annotation(title = "Design string layout")
+
+```
+
+Alternatively, `plot_spacer()` can be used in the plot specification and it's treated as a plot within the design (instead of using "#").
+```{r}
+
+design <- "
+AAA
+BCD
+"
+p1 + p2 + plot_spacer() + p3 + plot_layout(design = design) +
   plot_annotation(title = "Design string layout")
 
 ```

@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -74,6 +109,7 @@ ul.task-list li input[type="checkbox"] {
 
 <link rel="stylesheet" href="../styles.css">
 <meta property="og:title" content="Mapping Functions – Beyond intro R">
+<meta property="og:description" content="">
 <meta property="og:site_name" content="Beyond intro R">
 </head>
 
@@ -154,20 +190,20 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../02-wrangling/01-tidy.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">01-tidy</span></a>
+  <a href="../02-wrangling/01-wrangle.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Extra wrangling data with dplyr</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../02-wrangling/02-wrangle.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">02-wrangle</span></a>
+  <a href="../02-wrangling/02-join.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">02-join.html</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../02-wrangling/03-tables.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">03-tables</span></a>
+ <span class="menu-text">Better tables with {gt}</span></a>
   </div>
 </li>
       </ul>
@@ -206,11 +242,20 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#map" id="toc-map" class="nav-link active" data-scroll-target="#map">Map</a>
+  <ul>
+  <li><a href="#map-and-friends" id="toc-map-and-friends" class="nav-link" data-scroll-target="#map-and-friends">Map and friends</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
-<main class="content column-page-right" id="quarto-document-content">
+<main class="content column-body" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../03-programming-overview.html">Programming</a></li><li class="breadcrumb-item"><a href="../03-programming/02-purrr.html">Mapping Functions</a></li></ol></nav>
 <div class="quarto-title">
@@ -219,7 +264,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<div class="quarto-title-meta column-page-right">
+<div class="quarto-title-meta column-body">
 
     
   
@@ -231,8 +276,57 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="map" class="level1">
+<h1>Map</h1>
+<p>In the package <code>purrr</code> (part of package tidyverse), there are a collection of <code>map</code> functions which iterate over a vector or list, applying a function to each element. This is a very succinct syntax, which achieves the same result as calling the function inside a for loop, without the overhead of writing out the loop structure.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>farenheit_to_celcius <span class="ot">&lt;-</span> <span class="cf">function</span>(temp_f){</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  temp_c <span class="ot">&lt;-</span> (temp_f <span class="sc">-</span> <span class="dv">32</span>) <span class="sc">*</span> <span class="dv">5</span><span class="sc">/</span><span class="dv">9</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(temp_c)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>my_temps_f <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">90</span>, <span class="dv">78</span>, <span class="dv">88</span>, <span class="dv">89</span>, <span class="dv">77</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># map applies the function (2nd argument) to each element of the vector (1st argument) </span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># and returns the results as a list. </span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>my_temps_c_list <span class="ot">&lt;-</span> <span class="fu">map</span>(my_temps_f, farenheit_to_celcius)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>my_temps_c_list</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+[1] 32.22222
+
+[[2]]
+[1] 25.55556
+
+[[3]]
+[1] 31.11111
+
+[[4]]
+[1] 31.66667
+
+[[5]]
+[1] 25</code></pre>
+</div>
+</div>
+<p>The <code>map</code> argument names are <code>.x</code> and <code>.f</code>, so the call to <code>map</code> above could also be written as <code>my_temps_c_list &lt;- map(.x = my_temps_f, .f = farenheit_to_celcius)</code></p>
+<p>Note that when providing a function as an argument, give <strong>only the function name</strong>. Do not follow the function name with () as for a function call.</p>
+<section id="map-and-friends" class="level2">
+<h2 class="anchored" data-anchor-id="map-and-friends">Map and friends</h2>
+<p>The basic form of <code>map</code> above, returns the results in a list. There are suffix versions of <code>map</code> that return the results as a specific data type.</p>
+<ul>
+<li><code>map()</code> makes a list.</li>
+<li><code>map_lgl()</code> makes a logical vector.</li>
+<li><code>map_int()</code> makes an integer vector.</li>
+<li><code>map_dbl()</code> makes a double vector.</li>
+<li><code>map_chr()</code> makes a character vector.</li>
+</ul>
+<p>These suffix versions will give an error if the data type of the results doesn’t match the intended return type. This is useful because you can write code to process the results further, confident that they are of a specific data type.</p>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -634,7 +728,7 @@ ul.task-list li input[type="checkbox"] {
     }
   });
   </script>
-<nav class="page-navigation column-page-right">
+<nav class="page-navigation column-body">
   <div class="nav-page nav-page-previous">
       <a href="../03-programming/01-functions.html" class="pagination-link" aria-label="Custom Functions">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Custom Functions</span>

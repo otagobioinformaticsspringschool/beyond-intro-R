@@ -3,3 +3,41 @@ title: "Mapping Functions"
 format: html
 ---
 
+# Map
+
+In the package `purrr` (part of package tidyverse), there are a collection of `map` functions which iterate over a vector or list, applying a function to each element. This is a very succinct syntax, which achieves the same result as calling the function inside a for loop, without the overhead of writing out the loop structure.
+
+```{r simple map}
+library(purrr)
+
+farenheit_to_celcius <- function(temp_f){
+  temp_c <- (temp_f - 32) * 5/9
+  return(temp_c)
+}
+
+my_temps_f <- c(90, 78, 88, 89, 77)
+
+# map applies the function (2nd argument) to each element of the vector (1st argument) 
+# and returns the results as a list. 
+my_temps_c_list <- map(my_temps_f, farenheit_to_celcius)
+my_temps_c_list
+
+```
+
+The `map` argument names are `.x` and `.f`, so the call to `map` above could also be written as `my_temps_c_list <- map(.x = my_temps_f, .f = farenheit_to_celcius)`
+
+Note that when providing a function as an argument, give **only the function name**. Do not follow the function name with () as for a function call.
+
+
+
+## Map and friends
+
+The basic form of `map` above, returns the results in a list. There are suffix versions of `map` that return the results as a specific data type.
+
+- `map()` makes a list.
+- `map_lgl()` makes a logical vector.
+- `map_int()` makes an integer vector.
+- `map_dbl()` makes a double vector.
+- `map_chr()` makes a character vector.
+
+These suffix versions will give an error if the data type of the results doesn't match the intended return type. This is useful because you can write code to process the results further, confident that they are of a specific data type. 

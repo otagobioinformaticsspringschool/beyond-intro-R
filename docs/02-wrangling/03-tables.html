@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>03-tables – Beyond intro R</title>
+<title>Better tables with {gt} – Beyond intro R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -66,7 +66,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
 <link href="../03-programming-overview.html" rel="next">
-<link href="../02-wrangling/02-wrangle.html" rel="prev">
+<link href="../02-wrangling/02-join.html" rel="prev">
 <link href="../theme-images/GA-image-black-favicon.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -108,7 +108,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <link rel="stylesheet" href="../styles.css">
-<meta property="og:title" content="03-tables – Beyond intro R">
+<meta property="og:title" content="Better tables with {gt} – Beyond intro R">
 <meta property="og:description" content="">
 <meta property="og:site_name" content="Beyond intro R">
 </head>
@@ -122,7 +122,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../02-wrangling-overview.html">Data Manipulation</a></li><li class="breadcrumb-item"><a href="../02-wrangling/03-tables.html">03-tables</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../02-wrangling-overview.html">Data Manipulation</a></li><li class="breadcrumb-item"><a href="../02-wrangling/03-tables.html">Better tables with {gt}</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -190,20 +190,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../02-wrangling/01-tidy.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">01-tidy</span></a>
+  <a href="../02-wrangling/01-wrangle.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Extra wrangling data with dplyr</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../02-wrangling/02-wrangle.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">02-wrangle</span></a>
+  <a href="../02-wrangling/02-join.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">02-join.html</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../02-wrangling/03-tables.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">03-tables</span></a>
+ <span class="menu-text">Better tables with {gt}</span></a>
   </div>
 </li>
       </ul>
@@ -255,9 +255,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content column-body" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../02-wrangling-overview.html">Data Manipulation</a></li><li class="breadcrumb-item"><a href="../02-wrangling/03-tables.html">03-tables</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../02-wrangling-overview.html">Data Manipulation</a></li><li class="breadcrumb-item"><a href="../02-wrangling/03-tables.html">Better tables with {gt}</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">03-tables</h1>
+<h1 class="title">Better tables with {gt}</h1>
 </div>
 
 
@@ -332,23 +332,23 @@ The following object is masked from 'package:readr':
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="qykinzajvg" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#qykinzajvg table {
+<div id="gksicdfjvw" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#gksicdfjvw table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#qykinzajvg thead, #qykinzajvg tbody, #qykinzajvg tfoot, #qykinzajvg tr, #qykinzajvg td, #qykinzajvg th {
+#gksicdfjvw thead, #gksicdfjvw tbody, #gksicdfjvw tfoot, #gksicdfjvw tr, #gksicdfjvw td, #gksicdfjvw th {
   border-style: none;
 }
 
-#qykinzajvg p {
+#gksicdfjvw p {
   margin: 0;
   padding: 0;
 }
 
-#qykinzajvg .gt_table {
+#gksicdfjvw .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -374,12 +374,12 @@ The following object is masked from 'package:readr':
   border-left-color: #D3D3D3;
 }
 
-#qykinzajvg .gt_caption {
+#gksicdfjvw .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#qykinzajvg .gt_title {
+#gksicdfjvw .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -391,7 +391,7 @@ The following object is masked from 'package:readr':
   border-bottom-width: 0;
 }
 
-#qykinzajvg .gt_subtitle {
+#gksicdfjvw .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -403,7 +403,7 @@ The following object is masked from 'package:readr':
   border-top-width: 0;
 }
 
-#qykinzajvg .gt_heading {
+#gksicdfjvw .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -415,13 +415,13 @@ The following object is masked from 'package:readr':
   border-right-color: #D3D3D3;
 }
 
-#qykinzajvg .gt_bottom_border {
+#gksicdfjvw .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#qykinzajvg .gt_col_headings {
+#gksicdfjvw .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -436,7 +436,7 @@ The following object is masked from 'package:readr':
   border-right-color: #D3D3D3;
 }
 
-#qykinzajvg .gt_col_heading {
+#gksicdfjvw .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -456,7 +456,7 @@ The following object is masked from 'package:readr':
   overflow-x: hidden;
 }
 
-#qykinzajvg .gt_column_spanner_outer {
+#gksicdfjvw .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -468,15 +468,15 @@ The following object is masked from 'package:readr':
   padding-right: 4px;
 }
 
-#qykinzajvg .gt_column_spanner_outer:first-child {
+#gksicdfjvw .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#qykinzajvg .gt_column_spanner_outer:last-child {
+#gksicdfjvw .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#qykinzajvg .gt_column_spanner {
+#gksicdfjvw .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -488,11 +488,11 @@ The following object is masked from 'package:readr':
   width: 100%;
 }
 
-#qykinzajvg .gt_spanner_row {
+#gksicdfjvw .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#qykinzajvg .gt_group_heading {
+#gksicdfjvw .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -518,7 +518,7 @@ The following object is masked from 'package:readr':
   text-align: left;
 }
 
-#qykinzajvg .gt_empty_group_heading {
+#gksicdfjvw .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -533,15 +533,15 @@ The following object is masked from 'package:readr':
   vertical-align: middle;
 }
 
-#qykinzajvg .gt_from_md > :first-child {
+#gksicdfjvw .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#qykinzajvg .gt_from_md > :last-child {
+#gksicdfjvw .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#qykinzajvg .gt_row {
+#gksicdfjvw .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -560,7 +560,7 @@ The following object is masked from 'package:readr':
   overflow-x: hidden;
 }
 
-#qykinzajvg .gt_stub {
+#gksicdfjvw .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -573,7 +573,7 @@ The following object is masked from 'package:readr':
   padding-right: 5px;
 }
 
-#qykinzajvg .gt_stub_row_group {
+#gksicdfjvw .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -587,15 +587,15 @@ The following object is masked from 'package:readr':
   vertical-align: top;
 }
 
-#qykinzajvg .gt_row_group_first td {
+#gksicdfjvw .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#qykinzajvg .gt_row_group_first th {
+#gksicdfjvw .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#qykinzajvg .gt_summary_row {
+#gksicdfjvw .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -605,16 +605,16 @@ The following object is masked from 'package:readr':
   padding-right: 5px;
 }
 
-#qykinzajvg .gt_first_summary_row {
+#gksicdfjvw .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#qykinzajvg .gt_first_summary_row.thick {
+#gksicdfjvw .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#qykinzajvg .gt_last_summary_row {
+#gksicdfjvw .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -624,7 +624,7 @@ The following object is masked from 'package:readr':
   border-bottom-color: #D3D3D3;
 }
 
-#qykinzajvg .gt_grand_summary_row {
+#gksicdfjvw .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -634,7 +634,7 @@ The following object is masked from 'package:readr':
   padding-right: 5px;
 }
 
-#qykinzajvg .gt_first_grand_summary_row {
+#gksicdfjvw .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -644,7 +644,7 @@ The following object is masked from 'package:readr':
   border-top-color: #D3D3D3;
 }
 
-#qykinzajvg .gt_last_grand_summary_row_top {
+#gksicdfjvw .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -654,11 +654,11 @@ The following object is masked from 'package:readr':
   border-bottom-color: #D3D3D3;
 }
 
-#qykinzajvg .gt_striped {
+#gksicdfjvw .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#qykinzajvg .gt_table_body {
+#gksicdfjvw .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -667,7 +667,7 @@ The following object is masked from 'package:readr':
   border-bottom-color: #D3D3D3;
 }
 
-#qykinzajvg .gt_footnotes {
+#gksicdfjvw .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -681,7 +681,7 @@ The following object is masked from 'package:readr':
   border-right-color: #D3D3D3;
 }
 
-#qykinzajvg .gt_footnote {
+#gksicdfjvw .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -690,7 +690,7 @@ The following object is masked from 'package:readr':
   padding-right: 5px;
 }
 
-#qykinzajvg .gt_sourcenotes {
+#gksicdfjvw .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -704,7 +704,7 @@ The following object is masked from 'package:readr':
   border-right-color: #D3D3D3;
 }
 
-#qykinzajvg .gt_sourcenote {
+#gksicdfjvw .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -712,72 +712,72 @@ The following object is masked from 'package:readr':
   padding-right: 5px;
 }
 
-#qykinzajvg .gt_left {
+#gksicdfjvw .gt_left {
   text-align: left;
 }
 
-#qykinzajvg .gt_center {
+#gksicdfjvw .gt_center {
   text-align: center;
 }
 
-#qykinzajvg .gt_right {
+#gksicdfjvw .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#qykinzajvg .gt_font_normal {
+#gksicdfjvw .gt_font_normal {
   font-weight: normal;
 }
 
-#qykinzajvg .gt_font_bold {
+#gksicdfjvw .gt_font_bold {
   font-weight: bold;
 }
 
-#qykinzajvg .gt_font_italic {
+#gksicdfjvw .gt_font_italic {
   font-style: italic;
 }
 
-#qykinzajvg .gt_super {
+#gksicdfjvw .gt_super {
   font-size: 65%;
 }
 
-#qykinzajvg .gt_footnote_marks {
+#gksicdfjvw .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#qykinzajvg .gt_asterisk {
+#gksicdfjvw .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#qykinzajvg .gt_indent_1 {
+#gksicdfjvw .gt_indent_1 {
   text-indent: 5px;
 }
 
-#qykinzajvg .gt_indent_2 {
+#gksicdfjvw .gt_indent_2 {
   text-indent: 10px;
 }
 
-#qykinzajvg .gt_indent_3 {
+#gksicdfjvw .gt_indent_3 {
   text-indent: 15px;
 }
 
-#qykinzajvg .gt_indent_4 {
+#gksicdfjvw .gt_indent_4 {
   text-indent: 20px;
 }
 
-#qykinzajvg .gt_indent_5 {
+#gksicdfjvw .gt_indent_5 {
   text-indent: 25px;
 }
 
-#qykinzajvg .katex-display {
+#gksicdfjvw .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#qykinzajvg div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#gksicdfjvw div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -916,23 +916,23 @@ The following object is masked from 'package:readr':
 <span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">decimals =</span> <span class="dv">0</span></span>
 <span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="lvfbuouqyr" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#lvfbuouqyr table {
+<div id="yfcywszsmn" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#yfcywszsmn table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#lvfbuouqyr thead, #lvfbuouqyr tbody, #lvfbuouqyr tfoot, #lvfbuouqyr tr, #lvfbuouqyr td, #lvfbuouqyr th {
+#yfcywszsmn thead, #yfcywszsmn tbody, #yfcywszsmn tfoot, #yfcywszsmn tr, #yfcywszsmn td, #yfcywszsmn th {
   border-style: none;
 }
 
-#lvfbuouqyr p {
+#yfcywszsmn p {
   margin: 0;
   padding: 0;
 }
 
-#lvfbuouqyr .gt_table {
+#yfcywszsmn .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -958,12 +958,12 @@ The following object is masked from 'package:readr':
   border-left-color: #D3D3D3;
 }
 
-#lvfbuouqyr .gt_caption {
+#yfcywszsmn .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#lvfbuouqyr .gt_title {
+#yfcywszsmn .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -975,7 +975,7 @@ The following object is masked from 'package:readr':
   border-bottom-width: 0;
 }
 
-#lvfbuouqyr .gt_subtitle {
+#yfcywszsmn .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -987,7 +987,7 @@ The following object is masked from 'package:readr':
   border-top-width: 0;
 }
 
-#lvfbuouqyr .gt_heading {
+#yfcywszsmn .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -999,13 +999,13 @@ The following object is masked from 'package:readr':
   border-right-color: #D3D3D3;
 }
 
-#lvfbuouqyr .gt_bottom_border {
+#yfcywszsmn .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#lvfbuouqyr .gt_col_headings {
+#yfcywszsmn .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1020,7 +1020,7 @@ The following object is masked from 'package:readr':
   border-right-color: #D3D3D3;
 }
 
-#lvfbuouqyr .gt_col_heading {
+#yfcywszsmn .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1040,7 +1040,7 @@ The following object is masked from 'package:readr':
   overflow-x: hidden;
 }
 
-#lvfbuouqyr .gt_column_spanner_outer {
+#yfcywszsmn .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1052,15 +1052,15 @@ The following object is masked from 'package:readr':
   padding-right: 4px;
 }
 
-#lvfbuouqyr .gt_column_spanner_outer:first-child {
+#yfcywszsmn .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#lvfbuouqyr .gt_column_spanner_outer:last-child {
+#yfcywszsmn .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#lvfbuouqyr .gt_column_spanner {
+#yfcywszsmn .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1072,11 +1072,11 @@ The following object is masked from 'package:readr':
   width: 100%;
 }
 
-#lvfbuouqyr .gt_spanner_row {
+#yfcywszsmn .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#lvfbuouqyr .gt_group_heading {
+#yfcywszsmn .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1102,7 +1102,7 @@ The following object is masked from 'package:readr':
   text-align: left;
 }
 
-#lvfbuouqyr .gt_empty_group_heading {
+#yfcywszsmn .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1117,15 +1117,15 @@ The following object is masked from 'package:readr':
   vertical-align: middle;
 }
 
-#lvfbuouqyr .gt_from_md > :first-child {
+#yfcywszsmn .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#lvfbuouqyr .gt_from_md > :last-child {
+#yfcywszsmn .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#lvfbuouqyr .gt_row {
+#yfcywszsmn .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1144,7 +1144,7 @@ The following object is masked from 'package:readr':
   overflow-x: hidden;
 }
 
-#lvfbuouqyr .gt_stub {
+#yfcywszsmn .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1157,7 +1157,7 @@ The following object is masked from 'package:readr':
   padding-right: 5px;
 }
 
-#lvfbuouqyr .gt_stub_row_group {
+#yfcywszsmn .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1171,15 +1171,15 @@ The following object is masked from 'package:readr':
   vertical-align: top;
 }
 
-#lvfbuouqyr .gt_row_group_first td {
+#yfcywszsmn .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#lvfbuouqyr .gt_row_group_first th {
+#yfcywszsmn .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#lvfbuouqyr .gt_summary_row {
+#yfcywszsmn .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1189,16 +1189,16 @@ The following object is masked from 'package:readr':
   padding-right: 5px;
 }
 
-#lvfbuouqyr .gt_first_summary_row {
+#yfcywszsmn .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#lvfbuouqyr .gt_first_summary_row.thick {
+#yfcywszsmn .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#lvfbuouqyr .gt_last_summary_row {
+#yfcywszsmn .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1208,7 +1208,7 @@ The following object is masked from 'package:readr':
   border-bottom-color: #D3D3D3;
 }
 
-#lvfbuouqyr .gt_grand_summary_row {
+#yfcywszsmn .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1218,7 +1218,7 @@ The following object is masked from 'package:readr':
   padding-right: 5px;
 }
 
-#lvfbuouqyr .gt_first_grand_summary_row {
+#yfcywszsmn .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1228,7 +1228,7 @@ The following object is masked from 'package:readr':
   border-top-color: #D3D3D3;
 }
 
-#lvfbuouqyr .gt_last_grand_summary_row_top {
+#yfcywszsmn .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1238,11 +1238,11 @@ The following object is masked from 'package:readr':
   border-bottom-color: #D3D3D3;
 }
 
-#lvfbuouqyr .gt_striped {
+#yfcywszsmn .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#lvfbuouqyr .gt_table_body {
+#yfcywszsmn .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1251,7 +1251,7 @@ The following object is masked from 'package:readr':
   border-bottom-color: #D3D3D3;
 }
 
-#lvfbuouqyr .gt_footnotes {
+#yfcywszsmn .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1265,7 +1265,7 @@ The following object is masked from 'package:readr':
   border-right-color: #D3D3D3;
 }
 
-#lvfbuouqyr .gt_footnote {
+#yfcywszsmn .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1274,7 +1274,7 @@ The following object is masked from 'package:readr':
   padding-right: 5px;
 }
 
-#lvfbuouqyr .gt_sourcenotes {
+#yfcywszsmn .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1288,7 +1288,7 @@ The following object is masked from 'package:readr':
   border-right-color: #D3D3D3;
 }
 
-#lvfbuouqyr .gt_sourcenote {
+#yfcywszsmn .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1296,72 +1296,72 @@ The following object is masked from 'package:readr':
   padding-right: 5px;
 }
 
-#lvfbuouqyr .gt_left {
+#yfcywszsmn .gt_left {
   text-align: left;
 }
 
-#lvfbuouqyr .gt_center {
+#yfcywszsmn .gt_center {
   text-align: center;
 }
 
-#lvfbuouqyr .gt_right {
+#yfcywszsmn .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#lvfbuouqyr .gt_font_normal {
+#yfcywszsmn .gt_font_normal {
   font-weight: normal;
 }
 
-#lvfbuouqyr .gt_font_bold {
+#yfcywszsmn .gt_font_bold {
   font-weight: bold;
 }
 
-#lvfbuouqyr .gt_font_italic {
+#yfcywszsmn .gt_font_italic {
   font-style: italic;
 }
 
-#lvfbuouqyr .gt_super {
+#yfcywszsmn .gt_super {
   font-size: 65%;
 }
 
-#lvfbuouqyr .gt_footnote_marks {
+#yfcywszsmn .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#lvfbuouqyr .gt_asterisk {
+#yfcywszsmn .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#lvfbuouqyr .gt_indent_1 {
+#yfcywszsmn .gt_indent_1 {
   text-indent: 5px;
 }
 
-#lvfbuouqyr .gt_indent_2 {
+#yfcywszsmn .gt_indent_2 {
   text-indent: 10px;
 }
 
-#lvfbuouqyr .gt_indent_3 {
+#yfcywszsmn .gt_indent_3 {
   text-indent: 15px;
 }
 
-#lvfbuouqyr .gt_indent_4 {
+#yfcywszsmn .gt_indent_4 {
   text-indent: 20px;
 }
 
-#lvfbuouqyr .gt_indent_5 {
+#yfcywszsmn .gt_indent_5 {
   text-indent: 25px;
 }
 
-#lvfbuouqyr .katex-display {
+#yfcywszsmn .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#lvfbuouqyr div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#yfcywszsmn div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1503,23 +1503,23 @@ This warning is displayed once every 8 hours.</code></pre>
 • Please use `columns = c(...)` instead.</code></pre>
 </div>
 <div class="cell-output-display">
-<div id="igzmqnazyf" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#igzmqnazyf table {
+<div id="odxghaleke" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#odxghaleke table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#igzmqnazyf thead, #igzmqnazyf tbody, #igzmqnazyf tfoot, #igzmqnazyf tr, #igzmqnazyf td, #igzmqnazyf th {
+#odxghaleke thead, #odxghaleke tbody, #odxghaleke tfoot, #odxghaleke tr, #odxghaleke td, #odxghaleke th {
   border-style: none;
 }
 
-#igzmqnazyf p {
+#odxghaleke p {
   margin: 0;
   padding: 0;
 }
 
-#igzmqnazyf .gt_table {
+#odxghaleke .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1545,12 +1545,12 @@ This warning is displayed once every 8 hours.</code></pre>
   border-left-color: #D3D3D3;
 }
 
-#igzmqnazyf .gt_caption {
+#odxghaleke .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#igzmqnazyf .gt_title {
+#odxghaleke .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1562,7 +1562,7 @@ This warning is displayed once every 8 hours.</code></pre>
   border-bottom-width: 0;
 }
 
-#igzmqnazyf .gt_subtitle {
+#odxghaleke .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1574,7 +1574,7 @@ This warning is displayed once every 8 hours.</code></pre>
   border-top-width: 0;
 }
 
-#igzmqnazyf .gt_heading {
+#odxghaleke .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1586,13 +1586,13 @@ This warning is displayed once every 8 hours.</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#igzmqnazyf .gt_bottom_border {
+#odxghaleke .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#igzmqnazyf .gt_col_headings {
+#odxghaleke .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1607,7 +1607,7 @@ This warning is displayed once every 8 hours.</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#igzmqnazyf .gt_col_heading {
+#odxghaleke .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1627,7 +1627,7 @@ This warning is displayed once every 8 hours.</code></pre>
   overflow-x: hidden;
 }
 
-#igzmqnazyf .gt_column_spanner_outer {
+#odxghaleke .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1639,15 +1639,15 @@ This warning is displayed once every 8 hours.</code></pre>
   padding-right: 4px;
 }
 
-#igzmqnazyf .gt_column_spanner_outer:first-child {
+#odxghaleke .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#igzmqnazyf .gt_column_spanner_outer:last-child {
+#odxghaleke .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#igzmqnazyf .gt_column_spanner {
+#odxghaleke .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1659,11 +1659,11 @@ This warning is displayed once every 8 hours.</code></pre>
   width: 100%;
 }
 
-#igzmqnazyf .gt_spanner_row {
+#odxghaleke .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#igzmqnazyf .gt_group_heading {
+#odxghaleke .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1689,7 +1689,7 @@ This warning is displayed once every 8 hours.</code></pre>
   text-align: left;
 }
 
-#igzmqnazyf .gt_empty_group_heading {
+#odxghaleke .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1704,15 +1704,15 @@ This warning is displayed once every 8 hours.</code></pre>
   vertical-align: middle;
 }
 
-#igzmqnazyf .gt_from_md > :first-child {
+#odxghaleke .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#igzmqnazyf .gt_from_md > :last-child {
+#odxghaleke .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#igzmqnazyf .gt_row {
+#odxghaleke .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1731,7 +1731,7 @@ This warning is displayed once every 8 hours.</code></pre>
   overflow-x: hidden;
 }
 
-#igzmqnazyf .gt_stub {
+#odxghaleke .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1744,7 +1744,7 @@ This warning is displayed once every 8 hours.</code></pre>
   padding-right: 5px;
 }
 
-#igzmqnazyf .gt_stub_row_group {
+#odxghaleke .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1758,15 +1758,15 @@ This warning is displayed once every 8 hours.</code></pre>
   vertical-align: top;
 }
 
-#igzmqnazyf .gt_row_group_first td {
+#odxghaleke .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#igzmqnazyf .gt_row_group_first th {
+#odxghaleke .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#igzmqnazyf .gt_summary_row {
+#odxghaleke .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1776,16 +1776,16 @@ This warning is displayed once every 8 hours.</code></pre>
   padding-right: 5px;
 }
 
-#igzmqnazyf .gt_first_summary_row {
+#odxghaleke .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#igzmqnazyf .gt_first_summary_row.thick {
+#odxghaleke .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#igzmqnazyf .gt_last_summary_row {
+#odxghaleke .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1795,7 +1795,7 @@ This warning is displayed once every 8 hours.</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#igzmqnazyf .gt_grand_summary_row {
+#odxghaleke .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1805,7 +1805,7 @@ This warning is displayed once every 8 hours.</code></pre>
   padding-right: 5px;
 }
 
-#igzmqnazyf .gt_first_grand_summary_row {
+#odxghaleke .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1815,7 +1815,7 @@ This warning is displayed once every 8 hours.</code></pre>
   border-top-color: #D3D3D3;
 }
 
-#igzmqnazyf .gt_last_grand_summary_row_top {
+#odxghaleke .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1825,11 +1825,11 @@ This warning is displayed once every 8 hours.</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#igzmqnazyf .gt_striped {
+#odxghaleke .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#igzmqnazyf .gt_table_body {
+#odxghaleke .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1838,7 +1838,7 @@ This warning is displayed once every 8 hours.</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#igzmqnazyf .gt_footnotes {
+#odxghaleke .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1852,7 +1852,7 @@ This warning is displayed once every 8 hours.</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#igzmqnazyf .gt_footnote {
+#odxghaleke .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1861,7 +1861,7 @@ This warning is displayed once every 8 hours.</code></pre>
   padding-right: 5px;
 }
 
-#igzmqnazyf .gt_sourcenotes {
+#odxghaleke .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1875,7 +1875,7 @@ This warning is displayed once every 8 hours.</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#igzmqnazyf .gt_sourcenote {
+#odxghaleke .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1883,72 +1883,72 @@ This warning is displayed once every 8 hours.</code></pre>
   padding-right: 5px;
 }
 
-#igzmqnazyf .gt_left {
+#odxghaleke .gt_left {
   text-align: left;
 }
 
-#igzmqnazyf .gt_center {
+#odxghaleke .gt_center {
   text-align: center;
 }
 
-#igzmqnazyf .gt_right {
+#odxghaleke .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#igzmqnazyf .gt_font_normal {
+#odxghaleke .gt_font_normal {
   font-weight: normal;
 }
 
-#igzmqnazyf .gt_font_bold {
+#odxghaleke .gt_font_bold {
   font-weight: bold;
 }
 
-#igzmqnazyf .gt_font_italic {
+#odxghaleke .gt_font_italic {
   font-style: italic;
 }
 
-#igzmqnazyf .gt_super {
+#odxghaleke .gt_super {
   font-size: 65%;
 }
 
-#igzmqnazyf .gt_footnote_marks {
+#odxghaleke .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#igzmqnazyf .gt_asterisk {
+#odxghaleke .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#igzmqnazyf .gt_indent_1 {
+#odxghaleke .gt_indent_1 {
   text-indent: 5px;
 }
 
-#igzmqnazyf .gt_indent_2 {
+#odxghaleke .gt_indent_2 {
   text-indent: 10px;
 }
 
-#igzmqnazyf .gt_indent_3 {
+#odxghaleke .gt_indent_3 {
   text-indent: 15px;
 }
 
-#igzmqnazyf .gt_indent_4 {
+#odxghaleke .gt_indent_4 {
   text-indent: 20px;
 }
 
-#igzmqnazyf .gt_indent_5 {
+#odxghaleke .gt_indent_5 {
   text-indent: 25px;
 }
 
-#igzmqnazyf .katex-display {
+#odxghaleke .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#igzmqnazyf div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#odxghaleke div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -2090,23 +2090,23 @@ This warning is displayed once every 8 hours.</code></pre>
 • Please use `columns = c(...)` instead.</code></pre>
 </div>
 <div class="cell-output-display">
-<div id="heqfbsjbsj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#heqfbsjbsj table {
+<div id="royrioegtg" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#royrioegtg table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#heqfbsjbsj thead, #heqfbsjbsj tbody, #heqfbsjbsj tfoot, #heqfbsjbsj tr, #heqfbsjbsj td, #heqfbsjbsj th {
+#royrioegtg thead, #royrioegtg tbody, #royrioegtg tfoot, #royrioegtg tr, #royrioegtg td, #royrioegtg th {
   border-style: none;
 }
 
-#heqfbsjbsj p {
+#royrioegtg p {
   margin: 0;
   padding: 0;
 }
 
-#heqfbsjbsj .gt_table {
+#royrioegtg .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2132,12 +2132,12 @@ This warning is displayed once every 8 hours.</code></pre>
   border-left-color: #D3D3D3;
 }
 
-#heqfbsjbsj .gt_caption {
+#royrioegtg .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#heqfbsjbsj .gt_title {
+#royrioegtg .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2149,7 +2149,7 @@ This warning is displayed once every 8 hours.</code></pre>
   border-bottom-width: 0;
 }
 
-#heqfbsjbsj .gt_subtitle {
+#royrioegtg .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2161,7 +2161,7 @@ This warning is displayed once every 8 hours.</code></pre>
   border-top-width: 0;
 }
 
-#heqfbsjbsj .gt_heading {
+#royrioegtg .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2173,13 +2173,13 @@ This warning is displayed once every 8 hours.</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#heqfbsjbsj .gt_bottom_border {
+#royrioegtg .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#heqfbsjbsj .gt_col_headings {
+#royrioegtg .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2194,7 +2194,7 @@ This warning is displayed once every 8 hours.</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#heqfbsjbsj .gt_col_heading {
+#royrioegtg .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2214,7 +2214,7 @@ This warning is displayed once every 8 hours.</code></pre>
   overflow-x: hidden;
 }
 
-#heqfbsjbsj .gt_column_spanner_outer {
+#royrioegtg .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2226,15 +2226,15 @@ This warning is displayed once every 8 hours.</code></pre>
   padding-right: 4px;
 }
 
-#heqfbsjbsj .gt_column_spanner_outer:first-child {
+#royrioegtg .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#heqfbsjbsj .gt_column_spanner_outer:last-child {
+#royrioegtg .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#heqfbsjbsj .gt_column_spanner {
+#royrioegtg .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2246,11 +2246,11 @@ This warning is displayed once every 8 hours.</code></pre>
   width: 100%;
 }
 
-#heqfbsjbsj .gt_spanner_row {
+#royrioegtg .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#heqfbsjbsj .gt_group_heading {
+#royrioegtg .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2276,7 +2276,7 @@ This warning is displayed once every 8 hours.</code></pre>
   text-align: left;
 }
 
-#heqfbsjbsj .gt_empty_group_heading {
+#royrioegtg .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2291,15 +2291,15 @@ This warning is displayed once every 8 hours.</code></pre>
   vertical-align: middle;
 }
 
-#heqfbsjbsj .gt_from_md > :first-child {
+#royrioegtg .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#heqfbsjbsj .gt_from_md > :last-child {
+#royrioegtg .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#heqfbsjbsj .gt_row {
+#royrioegtg .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2318,7 +2318,7 @@ This warning is displayed once every 8 hours.</code></pre>
   overflow-x: hidden;
 }
 
-#heqfbsjbsj .gt_stub {
+#royrioegtg .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2331,7 +2331,7 @@ This warning is displayed once every 8 hours.</code></pre>
   padding-right: 5px;
 }
 
-#heqfbsjbsj .gt_stub_row_group {
+#royrioegtg .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2345,15 +2345,15 @@ This warning is displayed once every 8 hours.</code></pre>
   vertical-align: top;
 }
 
-#heqfbsjbsj .gt_row_group_first td {
+#royrioegtg .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#heqfbsjbsj .gt_row_group_first th {
+#royrioegtg .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#heqfbsjbsj .gt_summary_row {
+#royrioegtg .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2363,16 +2363,16 @@ This warning is displayed once every 8 hours.</code></pre>
   padding-right: 5px;
 }
 
-#heqfbsjbsj .gt_first_summary_row {
+#royrioegtg .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#heqfbsjbsj .gt_first_summary_row.thick {
+#royrioegtg .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#heqfbsjbsj .gt_last_summary_row {
+#royrioegtg .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2382,7 +2382,7 @@ This warning is displayed once every 8 hours.</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#heqfbsjbsj .gt_grand_summary_row {
+#royrioegtg .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2392,7 +2392,7 @@ This warning is displayed once every 8 hours.</code></pre>
   padding-right: 5px;
 }
 
-#heqfbsjbsj .gt_first_grand_summary_row {
+#royrioegtg .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2402,7 +2402,7 @@ This warning is displayed once every 8 hours.</code></pre>
   border-top-color: #D3D3D3;
 }
 
-#heqfbsjbsj .gt_last_grand_summary_row_top {
+#royrioegtg .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2412,11 +2412,11 @@ This warning is displayed once every 8 hours.</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#heqfbsjbsj .gt_striped {
+#royrioegtg .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#heqfbsjbsj .gt_table_body {
+#royrioegtg .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2425,7 +2425,7 @@ This warning is displayed once every 8 hours.</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#heqfbsjbsj .gt_footnotes {
+#royrioegtg .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2439,7 +2439,7 @@ This warning is displayed once every 8 hours.</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#heqfbsjbsj .gt_footnote {
+#royrioegtg .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2448,7 +2448,7 @@ This warning is displayed once every 8 hours.</code></pre>
   padding-right: 5px;
 }
 
-#heqfbsjbsj .gt_sourcenotes {
+#royrioegtg .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2462,7 +2462,7 @@ This warning is displayed once every 8 hours.</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#heqfbsjbsj .gt_sourcenote {
+#royrioegtg .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2470,72 +2470,72 @@ This warning is displayed once every 8 hours.</code></pre>
   padding-right: 5px;
 }
 
-#heqfbsjbsj .gt_left {
+#royrioegtg .gt_left {
   text-align: left;
 }
 
-#heqfbsjbsj .gt_center {
+#royrioegtg .gt_center {
   text-align: center;
 }
 
-#heqfbsjbsj .gt_right {
+#royrioegtg .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#heqfbsjbsj .gt_font_normal {
+#royrioegtg .gt_font_normal {
   font-weight: normal;
 }
 
-#heqfbsjbsj .gt_font_bold {
+#royrioegtg .gt_font_bold {
   font-weight: bold;
 }
 
-#heqfbsjbsj .gt_font_italic {
+#royrioegtg .gt_font_italic {
   font-style: italic;
 }
 
-#heqfbsjbsj .gt_super {
+#royrioegtg .gt_super {
   font-size: 65%;
 }
 
-#heqfbsjbsj .gt_footnote_marks {
+#royrioegtg .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#heqfbsjbsj .gt_asterisk {
+#royrioegtg .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#heqfbsjbsj .gt_indent_1 {
+#royrioegtg .gt_indent_1 {
   text-indent: 5px;
 }
 
-#heqfbsjbsj .gt_indent_2 {
+#royrioegtg .gt_indent_2 {
   text-indent: 10px;
 }
 
-#heqfbsjbsj .gt_indent_3 {
+#royrioegtg .gt_indent_3 {
   text-indent: 15px;
 }
 
-#heqfbsjbsj .gt_indent_4 {
+#royrioegtg .gt_indent_4 {
   text-indent: 20px;
 }
 
-#heqfbsjbsj .gt_indent_5 {
+#royrioegtg .gt_indent_5 {
   text-indent: 25px;
 }
 
-#heqfbsjbsj .katex-display {
+#royrioegtg .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#heqfbsjbsj div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#royrioegtg div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -2676,23 +2676,23 @@ This warning is displayed once every 8 hours.</code></pre>
 • Please use `columns = c(...)` instead.</code></pre>
 </div>
 <div class="cell-output-display">
-<div id="lqtfznphll" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#lqtfznphll table {
+<div id="zyfvvrnaav" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#zyfvvrnaav table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#lqtfznphll thead, #lqtfznphll tbody, #lqtfznphll tfoot, #lqtfznphll tr, #lqtfznphll td, #lqtfznphll th {
+#zyfvvrnaav thead, #zyfvvrnaav tbody, #zyfvvrnaav tfoot, #zyfvvrnaav tr, #zyfvvrnaav td, #zyfvvrnaav th {
   border-style: none;
 }
 
-#lqtfznphll p {
+#zyfvvrnaav p {
   margin: 0;
   padding: 0;
 }
 
-#lqtfznphll .gt_table {
+#zyfvvrnaav .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2718,12 +2718,12 @@ This warning is displayed once every 8 hours.</code></pre>
   border-left-color: #D3D3D3;
 }
 
-#lqtfznphll .gt_caption {
+#zyfvvrnaav .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#lqtfznphll .gt_title {
+#zyfvvrnaav .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2735,7 +2735,7 @@ This warning is displayed once every 8 hours.</code></pre>
   border-bottom-width: 0;
 }
 
-#lqtfznphll .gt_subtitle {
+#zyfvvrnaav .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2747,7 +2747,7 @@ This warning is displayed once every 8 hours.</code></pre>
   border-top-width: 0;
 }
 
-#lqtfznphll .gt_heading {
+#zyfvvrnaav .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2759,13 +2759,13 @@ This warning is displayed once every 8 hours.</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#lqtfznphll .gt_bottom_border {
+#zyfvvrnaav .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#lqtfznphll .gt_col_headings {
+#zyfvvrnaav .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2780,7 +2780,7 @@ This warning is displayed once every 8 hours.</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#lqtfznphll .gt_col_heading {
+#zyfvvrnaav .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2800,7 +2800,7 @@ This warning is displayed once every 8 hours.</code></pre>
   overflow-x: hidden;
 }
 
-#lqtfznphll .gt_column_spanner_outer {
+#zyfvvrnaav .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2812,15 +2812,15 @@ This warning is displayed once every 8 hours.</code></pre>
   padding-right: 4px;
 }
 
-#lqtfznphll .gt_column_spanner_outer:first-child {
+#zyfvvrnaav .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#lqtfznphll .gt_column_spanner_outer:last-child {
+#zyfvvrnaav .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#lqtfznphll .gt_column_spanner {
+#zyfvvrnaav .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2832,11 +2832,11 @@ This warning is displayed once every 8 hours.</code></pre>
   width: 100%;
 }
 
-#lqtfznphll .gt_spanner_row {
+#zyfvvrnaav .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#lqtfznphll .gt_group_heading {
+#zyfvvrnaav .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2862,7 +2862,7 @@ This warning is displayed once every 8 hours.</code></pre>
   text-align: left;
 }
 
-#lqtfznphll .gt_empty_group_heading {
+#zyfvvrnaav .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2877,15 +2877,15 @@ This warning is displayed once every 8 hours.</code></pre>
   vertical-align: middle;
 }
 
-#lqtfznphll .gt_from_md > :first-child {
+#zyfvvrnaav .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#lqtfznphll .gt_from_md > :last-child {
+#zyfvvrnaav .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#lqtfznphll .gt_row {
+#zyfvvrnaav .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2904,7 +2904,7 @@ This warning is displayed once every 8 hours.</code></pre>
   overflow-x: hidden;
 }
 
-#lqtfznphll .gt_stub {
+#zyfvvrnaav .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2917,7 +2917,7 @@ This warning is displayed once every 8 hours.</code></pre>
   padding-right: 5px;
 }
 
-#lqtfznphll .gt_stub_row_group {
+#zyfvvrnaav .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2931,15 +2931,15 @@ This warning is displayed once every 8 hours.</code></pre>
   vertical-align: top;
 }
 
-#lqtfznphll .gt_row_group_first td {
+#zyfvvrnaav .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#lqtfznphll .gt_row_group_first th {
+#zyfvvrnaav .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#lqtfznphll .gt_summary_row {
+#zyfvvrnaav .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2949,16 +2949,16 @@ This warning is displayed once every 8 hours.</code></pre>
   padding-right: 5px;
 }
 
-#lqtfznphll .gt_first_summary_row {
+#zyfvvrnaav .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#lqtfznphll .gt_first_summary_row.thick {
+#zyfvvrnaav .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#lqtfznphll .gt_last_summary_row {
+#zyfvvrnaav .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2968,7 +2968,7 @@ This warning is displayed once every 8 hours.</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#lqtfznphll .gt_grand_summary_row {
+#zyfvvrnaav .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2978,7 +2978,7 @@ This warning is displayed once every 8 hours.</code></pre>
   padding-right: 5px;
 }
 
-#lqtfznphll .gt_first_grand_summary_row {
+#zyfvvrnaav .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2988,7 +2988,7 @@ This warning is displayed once every 8 hours.</code></pre>
   border-top-color: #D3D3D3;
 }
 
-#lqtfznphll .gt_last_grand_summary_row_top {
+#zyfvvrnaav .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2998,11 +2998,11 @@ This warning is displayed once every 8 hours.</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#lqtfznphll .gt_striped {
+#zyfvvrnaav .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#lqtfznphll .gt_table_body {
+#zyfvvrnaav .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -3011,7 +3011,7 @@ This warning is displayed once every 8 hours.</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#lqtfznphll .gt_footnotes {
+#zyfvvrnaav .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3025,7 +3025,7 @@ This warning is displayed once every 8 hours.</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#lqtfznphll .gt_footnote {
+#zyfvvrnaav .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -3034,7 +3034,7 @@ This warning is displayed once every 8 hours.</code></pre>
   padding-right: 5px;
 }
 
-#lqtfznphll .gt_sourcenotes {
+#zyfvvrnaav .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3048,7 +3048,7 @@ This warning is displayed once every 8 hours.</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#lqtfznphll .gt_sourcenote {
+#zyfvvrnaav .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -3056,72 +3056,72 @@ This warning is displayed once every 8 hours.</code></pre>
   padding-right: 5px;
 }
 
-#lqtfznphll .gt_left {
+#zyfvvrnaav .gt_left {
   text-align: left;
 }
 
-#lqtfznphll .gt_center {
+#zyfvvrnaav .gt_center {
   text-align: center;
 }
 
-#lqtfznphll .gt_right {
+#zyfvvrnaav .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#lqtfznphll .gt_font_normal {
+#zyfvvrnaav .gt_font_normal {
   font-weight: normal;
 }
 
-#lqtfznphll .gt_font_bold {
+#zyfvvrnaav .gt_font_bold {
   font-weight: bold;
 }
 
-#lqtfznphll .gt_font_italic {
+#zyfvvrnaav .gt_font_italic {
   font-style: italic;
 }
 
-#lqtfznphll .gt_super {
+#zyfvvrnaav .gt_super {
   font-size: 65%;
 }
 
-#lqtfznphll .gt_footnote_marks {
+#zyfvvrnaav .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#lqtfznphll .gt_asterisk {
+#zyfvvrnaav .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#lqtfznphll .gt_indent_1 {
+#zyfvvrnaav .gt_indent_1 {
   text-indent: 5px;
 }
 
-#lqtfznphll .gt_indent_2 {
+#zyfvvrnaav .gt_indent_2 {
   text-indent: 10px;
 }
 
-#lqtfznphll .gt_indent_3 {
+#zyfvvrnaav .gt_indent_3 {
   text-indent: 15px;
 }
 
-#lqtfznphll .gt_indent_4 {
+#zyfvvrnaav .gt_indent_4 {
   text-indent: 20px;
 }
 
-#lqtfznphll .gt_indent_5 {
+#zyfvvrnaav .gt_indent_5 {
   text-indent: 25px;
 }
 
-#lqtfznphll .katex-display {
+#zyfvvrnaav .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#lqtfznphll div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#zyfvvrnaav div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -3188,23 +3188,23 @@ This warning is displayed once every 8 hours.</code></pre>
 • Please use `columns = c(...)` instead.</code></pre>
 </div>
 <div class="cell-output-display">
-<div id="rjrfhasaxx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#rjrfhasaxx table {
+<div id="rulkzdikyr" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#rulkzdikyr table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#rjrfhasaxx thead, #rjrfhasaxx tbody, #rjrfhasaxx tfoot, #rjrfhasaxx tr, #rjrfhasaxx td, #rjrfhasaxx th {
+#rulkzdikyr thead, #rulkzdikyr tbody, #rulkzdikyr tfoot, #rulkzdikyr tr, #rulkzdikyr td, #rulkzdikyr th {
   border-style: none;
 }
 
-#rjrfhasaxx p {
+#rulkzdikyr p {
   margin: 0;
   padding: 0;
 }
 
-#rjrfhasaxx .gt_table {
+#rulkzdikyr .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -3230,12 +3230,12 @@ This warning is displayed once every 8 hours.</code></pre>
   border-left-color: #D3D3D3;
 }
 
-#rjrfhasaxx .gt_caption {
+#rulkzdikyr .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#rjrfhasaxx .gt_title {
+#rulkzdikyr .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -3247,7 +3247,7 @@ This warning is displayed once every 8 hours.</code></pre>
   border-bottom-width: 0;
 }
 
-#rjrfhasaxx .gt_subtitle {
+#rulkzdikyr .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -3259,7 +3259,7 @@ This warning is displayed once every 8 hours.</code></pre>
   border-top-width: 0;
 }
 
-#rjrfhasaxx .gt_heading {
+#rulkzdikyr .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -3271,13 +3271,13 @@ This warning is displayed once every 8 hours.</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#rjrfhasaxx .gt_bottom_border {
+#rulkzdikyr .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#rjrfhasaxx .gt_col_headings {
+#rulkzdikyr .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -3292,7 +3292,7 @@ This warning is displayed once every 8 hours.</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#rjrfhasaxx .gt_col_heading {
+#rulkzdikyr .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3312,7 +3312,7 @@ This warning is displayed once every 8 hours.</code></pre>
   overflow-x: hidden;
 }
 
-#rjrfhasaxx .gt_column_spanner_outer {
+#rulkzdikyr .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3324,15 +3324,15 @@ This warning is displayed once every 8 hours.</code></pre>
   padding-right: 4px;
 }
 
-#rjrfhasaxx .gt_column_spanner_outer:first-child {
+#rulkzdikyr .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#rjrfhasaxx .gt_column_spanner_outer:last-child {
+#rulkzdikyr .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#rjrfhasaxx .gt_column_spanner {
+#rulkzdikyr .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -3344,11 +3344,11 @@ This warning is displayed once every 8 hours.</code></pre>
   width: 100%;
 }
 
-#rjrfhasaxx .gt_spanner_row {
+#rulkzdikyr .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#rjrfhasaxx .gt_group_heading {
+#rulkzdikyr .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3374,7 +3374,7 @@ This warning is displayed once every 8 hours.</code></pre>
   text-align: left;
 }
 
-#rjrfhasaxx .gt_empty_group_heading {
+#rulkzdikyr .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -3389,15 +3389,15 @@ This warning is displayed once every 8 hours.</code></pre>
   vertical-align: middle;
 }
 
-#rjrfhasaxx .gt_from_md > :first-child {
+#rulkzdikyr .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#rjrfhasaxx .gt_from_md > :last-child {
+#rulkzdikyr .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#rjrfhasaxx .gt_row {
+#rulkzdikyr .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3416,7 +3416,7 @@ This warning is displayed once every 8 hours.</code></pre>
   overflow-x: hidden;
 }
 
-#rjrfhasaxx .gt_stub {
+#rulkzdikyr .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3429,7 +3429,7 @@ This warning is displayed once every 8 hours.</code></pre>
   padding-right: 5px;
 }
 
-#rjrfhasaxx .gt_stub_row_group {
+#rulkzdikyr .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3443,15 +3443,15 @@ This warning is displayed once every 8 hours.</code></pre>
   vertical-align: top;
 }
 
-#rjrfhasaxx .gt_row_group_first td {
+#rulkzdikyr .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#rjrfhasaxx .gt_row_group_first th {
+#rulkzdikyr .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#rjrfhasaxx .gt_summary_row {
+#rulkzdikyr .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3461,16 +3461,16 @@ This warning is displayed once every 8 hours.</code></pre>
   padding-right: 5px;
 }
 
-#rjrfhasaxx .gt_first_summary_row {
+#rulkzdikyr .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#rjrfhasaxx .gt_first_summary_row.thick {
+#rulkzdikyr .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#rjrfhasaxx .gt_last_summary_row {
+#rulkzdikyr .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3480,7 +3480,7 @@ This warning is displayed once every 8 hours.</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#rjrfhasaxx .gt_grand_summary_row {
+#rulkzdikyr .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3490,7 +3490,7 @@ This warning is displayed once every 8 hours.</code></pre>
   padding-right: 5px;
 }
 
-#rjrfhasaxx .gt_first_grand_summary_row {
+#rulkzdikyr .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3500,7 +3500,7 @@ This warning is displayed once every 8 hours.</code></pre>
   border-top-color: #D3D3D3;
 }
 
-#rjrfhasaxx .gt_last_grand_summary_row_top {
+#rulkzdikyr .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3510,11 +3510,11 @@ This warning is displayed once every 8 hours.</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#rjrfhasaxx .gt_striped {
+#rulkzdikyr .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#rjrfhasaxx .gt_table_body {
+#rulkzdikyr .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -3523,7 +3523,7 @@ This warning is displayed once every 8 hours.</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#rjrfhasaxx .gt_footnotes {
+#rulkzdikyr .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3537,7 +3537,7 @@ This warning is displayed once every 8 hours.</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#rjrfhasaxx .gt_footnote {
+#rulkzdikyr .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -3546,7 +3546,7 @@ This warning is displayed once every 8 hours.</code></pre>
   padding-right: 5px;
 }
 
-#rjrfhasaxx .gt_sourcenotes {
+#rulkzdikyr .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3560,7 +3560,7 @@ This warning is displayed once every 8 hours.</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#rjrfhasaxx .gt_sourcenote {
+#rulkzdikyr .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -3568,72 +3568,72 @@ This warning is displayed once every 8 hours.</code></pre>
   padding-right: 5px;
 }
 
-#rjrfhasaxx .gt_left {
+#rulkzdikyr .gt_left {
   text-align: left;
 }
 
-#rjrfhasaxx .gt_center {
+#rulkzdikyr .gt_center {
   text-align: center;
 }
 
-#rjrfhasaxx .gt_right {
+#rulkzdikyr .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#rjrfhasaxx .gt_font_normal {
+#rulkzdikyr .gt_font_normal {
   font-weight: normal;
 }
 
-#rjrfhasaxx .gt_font_bold {
+#rulkzdikyr .gt_font_bold {
   font-weight: bold;
 }
 
-#rjrfhasaxx .gt_font_italic {
+#rulkzdikyr .gt_font_italic {
   font-style: italic;
 }
 
-#rjrfhasaxx .gt_super {
+#rulkzdikyr .gt_super {
   font-size: 65%;
 }
 
-#rjrfhasaxx .gt_footnote_marks {
+#rulkzdikyr .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#rjrfhasaxx .gt_asterisk {
+#rulkzdikyr .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#rjrfhasaxx .gt_indent_1 {
+#rulkzdikyr .gt_indent_1 {
   text-indent: 5px;
 }
 
-#rjrfhasaxx .gt_indent_2 {
+#rulkzdikyr .gt_indent_2 {
   text-indent: 10px;
 }
 
-#rjrfhasaxx .gt_indent_3 {
+#rulkzdikyr .gt_indent_3 {
   text-indent: 15px;
 }
 
-#rjrfhasaxx .gt_indent_4 {
+#rulkzdikyr .gt_indent_4 {
   text-indent: 20px;
 }
 
-#rjrfhasaxx .gt_indent_5 {
+#rulkzdikyr .gt_indent_5 {
   text-indent: 25px;
 }
 
-#rjrfhasaxx .katex-display {
+#rulkzdikyr .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#rjrfhasaxx div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#rulkzdikyr div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -3656,57 +3656,57 @@ This warning is displayed once every 8 hours.</code></pre>
 </tr>
 <tr class="gt_row_group_first even">
 <td id="stub_1_1" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row"></td>
-<td class="gt_row gt_center" headers="Adelie stub_1_1 island">Biscoe</td>
-<td class="gt_row gt_right" headers="Adelie stub_1_1 bill_length_mm">35.0</td>
-<td class="gt_row gt_right" headers="Adelie stub_1_1 bill_depth_mm">17.9</td>
-<td class="gt_row gt_right" headers="Adelie stub_1_1 flipper_length_mm">192</td>
-<td class="gt_row gt_right" headers="Adelie stub_1_1 body_mass_g">3,725</td>
-<td class="gt_row gt_center" headers="Adelie stub_1_1 sex">female</td>
+<td class="gt_row gt_center" headers="Adelie stub_1_1 island">Torgersen</td>
+<td class="gt_row gt_right" headers="Adelie stub_1_1 bill_length_mm">42.5</td>
+<td class="gt_row gt_right" headers="Adelie stub_1_1 bill_depth_mm">20.7</td>
+<td class="gt_row gt_right" headers="Adelie stub_1_1 flipper_length_mm">197</td>
+<td class="gt_row gt_right" headers="Adelie stub_1_1 body_mass_g">4,500</td>
+<td class="gt_row gt_center" headers="Adelie stub_1_1 sex">male</td>
 </tr>
 <tr class="odd">
 <td id="stub_1_2" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row"></td>
-<td class="gt_row gt_center" headers="Adelie stub_1_2 island">Biscoe</td>
-<td class="gt_row gt_right" headers="Adelie stub_1_2 bill_length_mm">39.7</td>
-<td class="gt_row gt_right" headers="Adelie stub_1_2 bill_depth_mm">18.9</td>
-<td class="gt_row gt_right" headers="Adelie stub_1_2 flipper_length_mm">184</td>
-<td class="gt_row gt_right" headers="Adelie stub_1_2 body_mass_g">3,550</td>
-<td class="gt_row gt_center" headers="Adelie stub_1_2 sex">male</td>
+<td class="gt_row gt_center" headers="Adelie stub_1_2 island">Dream</td>
+<td class="gt_row gt_right" headers="Adelie stub_1_2 bill_length_mm">37.6</td>
+<td class="gt_row gt_right" headers="Adelie stub_1_2 bill_depth_mm">19.3</td>
+<td class="gt_row gt_right" headers="Adelie stub_1_2 flipper_length_mm">181</td>
+<td class="gt_row gt_right" headers="Adelie stub_1_2 body_mass_g">3,300</td>
+<td class="gt_row gt_center" headers="Adelie stub_1_2 sex">female</td>
 </tr>
 <tr class="even">
 <td id="stub_1_3" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row"></td>
-<td class="gt_row gt_center" headers="Adelie stub_1_3 island">Torgersen</td>
-<td class="gt_row gt_right" headers="Adelie stub_1_3 bill_length_mm">39.0</td>
-<td class="gt_row gt_right" headers="Adelie stub_1_3 bill_depth_mm">17.1</td>
-<td class="gt_row gt_right" headers="Adelie stub_1_3 flipper_length_mm">191</td>
-<td class="gt_row gt_right" headers="Adelie stub_1_3 body_mass_g">3,050</td>
-<td class="gt_row gt_center" headers="Adelie stub_1_3 sex">female</td>
+<td class="gt_row gt_center" headers="Adelie stub_1_3 island">Dream</td>
+<td class="gt_row gt_right" headers="Adelie stub_1_3 bill_length_mm">41.5</td>
+<td class="gt_row gt_right" headers="Adelie stub_1_3 bill_depth_mm">18.5</td>
+<td class="gt_row gt_right" headers="Adelie stub_1_3 flipper_length_mm">201</td>
+<td class="gt_row gt_right" headers="Adelie stub_1_3 body_mass_g">4,000</td>
+<td class="gt_row gt_center" headers="Adelie stub_1_3 sex">male</td>
 </tr>
 <tr class="odd">
 <td id="stub_1_4" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row"></td>
-<td class="gt_row gt_center" headers="Adelie stub_1_4 island">Biscoe</td>
-<td class="gt_row gt_right" headers="Adelie stub_1_4 bill_length_mm">41.0</td>
-<td class="gt_row gt_right" headers="Adelie stub_1_4 bill_depth_mm">20.0</td>
-<td class="gt_row gt_right" headers="Adelie stub_1_4 flipper_length_mm">203</td>
-<td class="gt_row gt_right" headers="Adelie stub_1_4 body_mass_g">4,725</td>
-<td class="gt_row gt_center" headers="Adelie stub_1_4 sex">male</td>
+<td class="gt_row gt_center" headers="Adelie stub_1_4 island">Torgersen</td>
+<td class="gt_row gt_right" headers="Adelie stub_1_4 bill_length_mm">38.8</td>
+<td class="gt_row gt_right" headers="Adelie stub_1_4 bill_depth_mm">17.6</td>
+<td class="gt_row gt_right" headers="Adelie stub_1_4 flipper_length_mm">191</td>
+<td class="gt_row gt_right" headers="Adelie stub_1_4 body_mass_g">3,275</td>
+<td class="gt_row gt_center" headers="Adelie stub_1_4 sex">female</td>
 </tr>
 <tr class="even">
 <td id="stub_1_5" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row"></td>
 <td class="gt_row gt_center" headers="Adelie stub_1_5 island">Dream</td>
-<td class="gt_row gt_right" headers="Adelie stub_1_5 bill_length_mm">36.2</td>
-<td class="gt_row gt_right" headers="Adelie stub_1_5 bill_depth_mm">17.3</td>
-<td class="gt_row gt_right" headers="Adelie stub_1_5 flipper_length_mm">187</td>
-<td class="gt_row gt_right" headers="Adelie stub_1_5 body_mass_g">3,300</td>
+<td class="gt_row gt_right" headers="Adelie stub_1_5 bill_length_mm">37.3</td>
+<td class="gt_row gt_right" headers="Adelie stub_1_5 bill_depth_mm">17.8</td>
+<td class="gt_row gt_right" headers="Adelie stub_1_5 flipper_length_mm">191</td>
+<td class="gt_row gt_right" headers="Adelie stub_1_5 body_mass_g">3,350</td>
 <td class="gt_row gt_center" headers="Adelie stub_1_5 sex">female</td>
 </tr>
 <tr class="odd">
 <td id="stub_1_6" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row"></td>
-<td class="gt_row gt_center" headers="Adelie stub_1_6 island">Dream</td>
-<td class="gt_row gt_right" headers="Adelie stub_1_6 bill_length_mm">37.3</td>
-<td class="gt_row gt_right" headers="Adelie stub_1_6 bill_depth_mm">17.8</td>
-<td class="gt_row gt_right" headers="Adelie stub_1_6 flipper_length_mm">191</td>
-<td class="gt_row gt_right" headers="Adelie stub_1_6 body_mass_g">3,350</td>
-<td class="gt_row gt_center" headers="Adelie stub_1_6 sex">female</td>
+<td class="gt_row gt_center" headers="Adelie stub_1_6 island">Biscoe</td>
+<td class="gt_row gt_right" headers="Adelie stub_1_6 bill_length_mm">42.7</td>
+<td class="gt_row gt_right" headers="Adelie stub_1_6 bill_depth_mm">18.3</td>
+<td class="gt_row gt_right" headers="Adelie stub_1_6 flipper_length_mm">196</td>
+<td class="gt_row gt_right" headers="Adelie stub_1_6 body_mass_g">4,075</td>
+<td class="gt_row gt_center" headers="Adelie stub_1_6 sex">male</td>
 </tr>
 <tr class="gt_group_heading_row even">
 <td colspan="7" id="Chinstrap" class="gt_group_heading" data-quarto-table-cell-role="th" scope="colgroup">Chinstrap</td>
@@ -3714,55 +3714,55 @@ This warning is displayed once every 8 hours.</code></pre>
 <tr class="gt_row_group_first odd">
 <td id="stub_1_7" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row"></td>
 <td class="gt_row gt_center" headers="Chinstrap stub_1_7 island">Dream</td>
-<td class="gt_row gt_right" headers="Chinstrap stub_1_7 bill_length_mm">50.9</td>
-<td class="gt_row gt_right" headers="Chinstrap stub_1_7 bill_depth_mm">19.1</td>
-<td class="gt_row gt_right" headers="Chinstrap stub_1_7 flipper_length_mm">196</td>
-<td class="gt_row gt_right" headers="Chinstrap stub_1_7 body_mass_g">3,550</td>
-<td class="gt_row gt_center" headers="Chinstrap stub_1_7 sex">male</td>
+<td class="gt_row gt_right" headers="Chinstrap stub_1_7 bill_length_mm">46.6</td>
+<td class="gt_row gt_right" headers="Chinstrap stub_1_7 bill_depth_mm">17.8</td>
+<td class="gt_row gt_right" headers="Chinstrap stub_1_7 flipper_length_mm">193</td>
+<td class="gt_row gt_right" headers="Chinstrap stub_1_7 body_mass_g">3,800</td>
+<td class="gt_row gt_center" headers="Chinstrap stub_1_7 sex">female</td>
 </tr>
 <tr class="even">
 <td id="stub_1_8" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row"></td>
 <td class="gt_row gt_center" headers="Chinstrap stub_1_8 island">Dream</td>
-<td class="gt_row gt_right" headers="Chinstrap stub_1_8 bill_length_mm">48.1</td>
-<td class="gt_row gt_right" headers="Chinstrap stub_1_8 bill_depth_mm">16.4</td>
-<td class="gt_row gt_right" headers="Chinstrap stub_1_8 flipper_length_mm">199</td>
-<td class="gt_row gt_right" headers="Chinstrap stub_1_8 body_mass_g">3,325</td>
-<td class="gt_row gt_center" headers="Chinstrap stub_1_8 sex">female</td>
+<td class="gt_row gt_right" headers="Chinstrap stub_1_8 bill_length_mm">52.7</td>
+<td class="gt_row gt_right" headers="Chinstrap stub_1_8 bill_depth_mm">19.8</td>
+<td class="gt_row gt_right" headers="Chinstrap stub_1_8 flipper_length_mm">197</td>
+<td class="gt_row gt_right" headers="Chinstrap stub_1_8 body_mass_g">3,725</td>
+<td class="gt_row gt_center" headers="Chinstrap stub_1_8 sex">male</td>
 </tr>
 <tr class="odd">
 <td id="stub_1_9" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row"></td>
 <td class="gt_row gt_center" headers="Chinstrap stub_1_9 island">Dream</td>
-<td class="gt_row gt_right" headers="Chinstrap stub_1_9 bill_length_mm">49.0</td>
-<td class="gt_row gt_right" headers="Chinstrap stub_1_9 bill_depth_mm">19.6</td>
-<td class="gt_row gt_right" headers="Chinstrap stub_1_9 flipper_length_mm">212</td>
-<td class="gt_row gt_right" headers="Chinstrap stub_1_9 body_mass_g">4,300</td>
-<td class="gt_row gt_center" headers="Chinstrap stub_1_9 sex">male</td>
+<td class="gt_row gt_right" headers="Chinstrap stub_1_9 bill_length_mm">42.4</td>
+<td class="gt_row gt_right" headers="Chinstrap stub_1_9 bill_depth_mm">17.3</td>
+<td class="gt_row gt_right" headers="Chinstrap stub_1_9 flipper_length_mm">181</td>
+<td class="gt_row gt_right" headers="Chinstrap stub_1_9 body_mass_g">3,600</td>
+<td class="gt_row gt_center" headers="Chinstrap stub_1_9 sex">female</td>
 </tr>
 <tr class="even">
 <td id="stub_1_10" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row"></td>
 <td class="gt_row gt_center" headers="Chinstrap stub_1_10 island">Dream</td>
-<td class="gt_row gt_right" headers="Chinstrap stub_1_10 bill_length_mm">46.4</td>
-<td class="gt_row gt_right" headers="Chinstrap stub_1_10 bill_depth_mm">17.8</td>
-<td class="gt_row gt_right" headers="Chinstrap stub_1_10 flipper_length_mm">191</td>
-<td class="gt_row gt_right" headers="Chinstrap stub_1_10 body_mass_g">3,700</td>
+<td class="gt_row gt_right" headers="Chinstrap stub_1_10 bill_length_mm">50.2</td>
+<td class="gt_row gt_right" headers="Chinstrap stub_1_10 bill_depth_mm">18.7</td>
+<td class="gt_row gt_right" headers="Chinstrap stub_1_10 flipper_length_mm">198</td>
+<td class="gt_row gt_right" headers="Chinstrap stub_1_10 body_mass_g">3,775</td>
 <td class="gt_row gt_center" headers="Chinstrap stub_1_10 sex">female</td>
 </tr>
 <tr class="odd">
 <td id="stub_1_11" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row"></td>
 <td class="gt_row gt_center" headers="Chinstrap stub_1_11 island">Dream</td>
-<td class="gt_row gt_right" headers="Chinstrap stub_1_11 bill_length_mm">51.7</td>
-<td class="gt_row gt_right" headers="Chinstrap stub_1_11 bill_depth_mm">20.3</td>
+<td class="gt_row gt_right" headers="Chinstrap stub_1_11 bill_length_mm">45.6</td>
+<td class="gt_row gt_right" headers="Chinstrap stub_1_11 bill_depth_mm">19.4</td>
 <td class="gt_row gt_right" headers="Chinstrap stub_1_11 flipper_length_mm">194</td>
-<td class="gt_row gt_right" headers="Chinstrap stub_1_11 body_mass_g">3,775</td>
-<td class="gt_row gt_center" headers="Chinstrap stub_1_11 sex">male</td>
+<td class="gt_row gt_right" headers="Chinstrap stub_1_11 body_mass_g">3,525</td>
+<td class="gt_row gt_center" headers="Chinstrap stub_1_11 sex">female</td>
 </tr>
 <tr class="even">
 <td id="stub_1_12" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row"></td>
 <td class="gt_row gt_center" headers="Chinstrap stub_1_12 island">Dream</td>
-<td class="gt_row gt_right" headers="Chinstrap stub_1_12 bill_length_mm">42.5</td>
-<td class="gt_row gt_right" headers="Chinstrap stub_1_12 bill_depth_mm">16.7</td>
-<td class="gt_row gt_right" headers="Chinstrap stub_1_12 flipper_length_mm">187</td>
-<td class="gt_row gt_right" headers="Chinstrap stub_1_12 body_mass_g">3,350</td>
+<td class="gt_row gt_right" headers="Chinstrap stub_1_12 bill_length_mm">47.5</td>
+<td class="gt_row gt_right" headers="Chinstrap stub_1_12 bill_depth_mm">16.8</td>
+<td class="gt_row gt_right" headers="Chinstrap stub_1_12 flipper_length_mm">199</td>
+<td class="gt_row gt_right" headers="Chinstrap stub_1_12 body_mass_g">3,900</td>
 <td class="gt_row gt_center" headers="Chinstrap stub_1_12 sex">female</td>
 </tr>
 <tr class="gt_group_heading_row odd">
@@ -3771,56 +3771,56 @@ This warning is displayed once every 8 hours.</code></pre>
 <tr class="gt_row_group_first even">
 <td id="stub_1_13" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row"></td>
 <td class="gt_row gt_center" headers="Gentoo stub_1_13 island">Biscoe</td>
-<td class="gt_row gt_right" headers="Gentoo stub_1_13 bill_length_mm">46.2</td>
-<td class="gt_row gt_right" headers="Gentoo stub_1_13 bill_depth_mm">14.1</td>
-<td class="gt_row gt_right" headers="Gentoo stub_1_13 flipper_length_mm">217</td>
-<td class="gt_row gt_right" headers="Gentoo stub_1_13 body_mass_g">4,375</td>
+<td class="gt_row gt_right" headers="Gentoo stub_1_13 bill_length_mm">43.5</td>
+<td class="gt_row gt_right" headers="Gentoo stub_1_13 bill_depth_mm">15.2</td>
+<td class="gt_row gt_right" headers="Gentoo stub_1_13 flipper_length_mm">213</td>
+<td class="gt_row gt_right" headers="Gentoo stub_1_13 body_mass_g">4,650</td>
 <td class="gt_row gt_center" headers="Gentoo stub_1_13 sex">female</td>
 </tr>
 <tr class="odd">
 <td id="stub_1_14" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row"></td>
 <td class="gt_row gt_center" headers="Gentoo stub_1_14 island">Biscoe</td>
-<td class="gt_row gt_right" headers="Gentoo stub_1_14 bill_length_mm">50.1</td>
-<td class="gt_row gt_right" headers="Gentoo stub_1_14 bill_depth_mm">15.0</td>
-<td class="gt_row gt_right" headers="Gentoo stub_1_14 flipper_length_mm">225</td>
-<td class="gt_row gt_right" headers="Gentoo stub_1_14 body_mass_g">5,000</td>
+<td class="gt_row gt_right" headers="Gentoo stub_1_14 bill_length_mm">48.1</td>
+<td class="gt_row gt_right" headers="Gentoo stub_1_14 bill_depth_mm">15.1</td>
+<td class="gt_row gt_right" headers="Gentoo stub_1_14 flipper_length_mm">209</td>
+<td class="gt_row gt_right" headers="Gentoo stub_1_14 body_mass_g">5,500</td>
 <td class="gt_row gt_center" headers="Gentoo stub_1_14 sex">male</td>
 </tr>
 <tr class="even">
 <td id="stub_1_15" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row"></td>
 <td class="gt_row gt_center" headers="Gentoo stub_1_15 island">Biscoe</td>
-<td class="gt_row gt_right" headers="Gentoo stub_1_15 bill_length_mm">45.8</td>
-<td class="gt_row gt_right" headers="Gentoo stub_1_15 bill_depth_mm">14.6</td>
-<td class="gt_row gt_right" headers="Gentoo stub_1_15 flipper_length_mm">210</td>
-<td class="gt_row gt_right" headers="Gentoo stub_1_15 body_mass_g">4,200</td>
-<td class="gt_row gt_center" headers="Gentoo stub_1_15 sex">female</td>
+<td class="gt_row gt_right" headers="Gentoo stub_1_15 bill_length_mm">48.8</td>
+<td class="gt_row gt_right" headers="Gentoo stub_1_15 bill_depth_mm">16.2</td>
+<td class="gt_row gt_right" headers="Gentoo stub_1_15 flipper_length_mm">222</td>
+<td class="gt_row gt_right" headers="Gentoo stub_1_15 body_mass_g">6,000</td>
+<td class="gt_row gt_center" headers="Gentoo stub_1_15 sex">male</td>
 </tr>
 <tr class="odd">
 <td id="stub_1_16" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row"></td>
 <td class="gt_row gt_center" headers="Gentoo stub_1_16 island">Biscoe</td>
-<td class="gt_row gt_right" headers="Gentoo stub_1_16 bill_length_mm">45.3</td>
-<td class="gt_row gt_right" headers="Gentoo stub_1_16 bill_depth_mm">13.8</td>
-<td class="gt_row gt_right" headers="Gentoo stub_1_16 flipper_length_mm">208</td>
-<td class="gt_row gt_right" headers="Gentoo stub_1_16 body_mass_g">4,200</td>
-<td class="gt_row gt_center" headers="Gentoo stub_1_16 sex">female</td>
+<td class="gt_row gt_right" headers="Gentoo stub_1_16 bill_length_mm">48.6</td>
+<td class="gt_row gt_right" headers="Gentoo stub_1_16 bill_depth_mm">16.0</td>
+<td class="gt_row gt_right" headers="Gentoo stub_1_16 flipper_length_mm">230</td>
+<td class="gt_row gt_right" headers="Gentoo stub_1_16 body_mass_g">5,800</td>
+<td class="gt_row gt_center" headers="Gentoo stub_1_16 sex">male</td>
 </tr>
 <tr class="even">
 <td id="stub_1_17" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row"></td>
 <td class="gt_row gt_center" headers="Gentoo stub_1_17 island">Biscoe</td>
-<td class="gt_row gt_right" headers="Gentoo stub_1_17 bill_length_mm">48.5</td>
-<td class="gt_row gt_right" headers="Gentoo stub_1_17 bill_depth_mm">14.1</td>
+<td class="gt_row gt_right" headers="Gentoo stub_1_17 bill_length_mm">43.5</td>
+<td class="gt_row gt_right" headers="Gentoo stub_1_17 bill_depth_mm">14.2</td>
 <td class="gt_row gt_right" headers="Gentoo stub_1_17 flipper_length_mm">220</td>
-<td class="gt_row gt_right" headers="Gentoo stub_1_17 body_mass_g">5,300</td>
-<td class="gt_row gt_center" headers="Gentoo stub_1_17 sex">male</td>
+<td class="gt_row gt_right" headers="Gentoo stub_1_17 body_mass_g">4,700</td>
+<td class="gt_row gt_center" headers="Gentoo stub_1_17 sex">female</td>
 </tr>
 <tr class="odd">
 <td id="stub_1_18" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row"></td>
 <td class="gt_row gt_center" headers="Gentoo stub_1_18 island">Biscoe</td>
-<td class="gt_row gt_right" headers="Gentoo stub_1_18 bill_length_mm">48.4</td>
-<td class="gt_row gt_right" headers="Gentoo stub_1_18 bill_depth_mm">14.6</td>
-<td class="gt_row gt_right" headers="Gentoo stub_1_18 flipper_length_mm">213</td>
-<td class="gt_row gt_right" headers="Gentoo stub_1_18 body_mass_g">5,850</td>
-<td class="gt_row gt_center" headers="Gentoo stub_1_18 sex">male</td>
+<td class="gt_row gt_right" headers="Gentoo stub_1_18 bill_length_mm">45.1</td>
+<td class="gt_row gt_right" headers="Gentoo stub_1_18 bill_depth_mm">14.5</td>
+<td class="gt_row gt_right" headers="Gentoo stub_1_18 flipper_length_mm">207</td>
+<td class="gt_row gt_right" headers="Gentoo stub_1_18 body_mass_g">5,050</td>
+<td class="gt_row gt_center" headers="Gentoo stub_1_18 sex">female</td>
 </tr>
 <tr class="even">
 <td id="grand_summary_stub_1" class="gt_row gt_left gt_stub gt_grand_summary_row gt_first_grand_summary_row gt_last_summary_row" data-quarto-table-cell-role="th" scope="row">Overall avg (g)</td>
@@ -3828,7 +3828,7 @@ This warning is displayed once every 8 hours.</code></pre>
 <td class="gt_row gt_right gt_grand_summary_row gt_first_grand_summary_row gt_last_summary_row" headers="grand_summary_stub_1 bill_length_mm">—</td>
 <td class="gt_row gt_right gt_grand_summary_row gt_first_grand_summary_row gt_last_summary_row" headers="grand_summary_stub_1 bill_depth_mm">—</td>
 <td class="gt_row gt_right gt_grand_summary_row gt_first_grand_summary_row gt_last_summary_row" headers="grand_summary_stub_1 flipper_length_mm">—</td>
-<td class="gt_row gt_right gt_grand_summary_row gt_first_grand_summary_row gt_last_summary_row" headers="grand_summary_stub_1 body_mass_g">4034.722</td>
+<td class="gt_row gt_right gt_grand_summary_row gt_first_grand_summary_row gt_last_summary_row" headers="grand_summary_stub_1 body_mass_g">4251.389</td>
 <td class="gt_row gt_center gt_grand_summary_row gt_first_grand_summary_row gt_last_summary_row" headers="grand_summary_stub_1 sex">—</td>
 </tr>
 </tbody>
@@ -4243,8 +4243,8 @@ This warning is displayed once every 8 hours.</code></pre>
   </script>
 <nav class="page-navigation column-body">
   <div class="nav-page nav-page-previous">
-      <a href="../02-wrangling/02-wrangle.html" class="pagination-link" aria-label="02-wrangle">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">02-wrangle</span>
+      <a href="../02-wrangling/02-join.html" class="pagination-link" aria-label="02-join.html">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">02-join.html</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

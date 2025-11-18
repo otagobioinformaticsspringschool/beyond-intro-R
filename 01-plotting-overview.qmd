@@ -44,6 +44,15 @@ The basic premise of ggplot is that there are 3 main components to a plot:
 and the plots are built in layers
 
 ```{r}
+#| eval: false
+
+# general structure for a ggplot
+ggplot(data = <DATA>, mapping = aes(<MAPPINGS>)) + <GEOM_FUNCTION>()
+```
+
+
+
+```{r}
 ggplot(
   data = penguins,
   mapping = aes(x = body_mass_g,
