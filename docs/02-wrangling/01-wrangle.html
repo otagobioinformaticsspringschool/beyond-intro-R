@@ -197,7 +197,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../02-wrangling/02-join.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">02-join.html</span></a>
+ <span class="menu-text">Combining Data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -290,7 +290,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) mutate with across + where: convert numeric measurements to centimeters</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>penguins_clean <span class="sc">%&gt;%</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), <span class="sc">~</span> . <span class="sc">/</span> <span class="dv">10</span>, <span class="at">.names =</span> <span class="st">"{.col}_cm"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), <span class="at">.fns =</span> \(x){x <span class="sc">/</span> <span class="dv">10</span>}, <span class="at">.names =</span> <span class="st">"{.col}_cm"</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(species, <span class="fu">ends_with</span>(<span class="st">"_cm"</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -851,8 +851,8 @@ Supply arguments directly to `.fns` through an anonymous function instead.
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../02-wrangling/02-join.html" class="pagination-link" aria-label="02-join.html">
-        <span class="nav-page-text">02-join.html</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../02-wrangling/02-join.html" class="pagination-link" aria-label="Combining Data">
+        <span class="nav-page-text">Combining Data</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -1,0 +1,51 @@
+---
+title: "Combining Data"
+format: html
+---
+
+## Joining examples with palmerpenguins
+
+```{r}
+#| message: false
+library(tidyverse)
+library(palmerpenguins)
+
+# prepare a clean table for examples
+penguins_clean <- penguins %>%
+  select(species, island, year, bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g) %>%
+  drop_na(species)
+```
+
+### Example A — inner_join with a small metadata table
+
+```{r}
+# create a small metadata table that intentionally omits one species (to show filtering)
+species_meta <- tibble(
+  species = c("Adelie", "Gentoo"),       # note: "Chinstrap" is omitted
+  conservation_note = c("stable", "monitor")
+)
+
+# inner_join keeps only rows that have a match in species_meta (Adelie + Gentoo only)
+penguins_inner <- penguins_clean %>%
+  inner_join(species_meta, by = "species")
+
+# inspect result counts per species (should not include Chinstrap)
+penguins_inner %>% count(species)
+```
+
+
+### Example B — left_join to attach island-level summaries
+
+```{r}
+# compute island-level average body mass
+island_summary <- penguins_clean %>%
+  group_by(island) %>%
+  summarise(island_mean_mass = mean(body_mass_g, na.rm = TRUE), .groups = "drop")
+
+# left_join preserves all rows from penguins_clean and adds island_mean_mass
+penguins_with_island <- penguins_clean %>%
+  left_join(island_summary, by = "island")
+
+# verify: each row has island_mean_mass and original rows are preserved
+penguins_with_island %>% slice_head(n = 6)
+```

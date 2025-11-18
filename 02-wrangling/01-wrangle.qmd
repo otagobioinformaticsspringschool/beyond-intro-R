@@ -23,7 +23,7 @@ Use across() to apply the same transformation or summary to multiple columns; us
 ```{r}
 # 1) mutate with across + where: convert numeric measurements to centimeters
 penguins_clean %>%
-  mutate(across(where(is.numeric), ~ . / 10, .names = "{.col}_cm")) %>%
+  mutate(across(where(is.numeric), .fns = \(x){x / 10}, .names = "{.col}_cm")) %>%
   select(species, ends_with("_cm")) %>%
   slice_head(n = 6)
 ```

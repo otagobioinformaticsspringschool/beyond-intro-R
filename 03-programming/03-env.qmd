@@ -3,5 +3,64 @@ title: "R Configuration"
 format: html
 ---
 
+## Configuration
 
+As part setting R up to work best for us, we're also wanting to make things easier on ourselves to that we can be more productive during the "do stuff" stage.
+
+There is a hidden file called .Rprofile which is loaded as R launches and is a place where you can place customisations of options to make your R life easier. For instance I have mine set to automatically load workflow helper packages such as `{usethis}` `{testthat}` and `{devtools}`. And set a few options to make R produce more warnings so that it helps me know when something might cause an issue. It's also a good place to set some defaults such as your favourite CRAN mirror so that R doesn't need to ask you when you go to install packages.
+
+
+```{r, eval=FALSE}
+usethis::edit_r_profile()
+```
+
+
+```{r, eval=FALSE}
+ # load workflow helper packages if in interactive session
+if (interactive()) {
+  suppressMessages(require(devtools))
+  suppressMessages(require(usethis))
+  suppressMessages(require(testthat))
+}
+
+
+# set CRAN
+options(repos = c(CRAN = "https://cloud.r-project.org/"))
+
+
+# warn on partial matches
+options(
+  warnPartialMatchArgs = TRUE,
+  warnPartialMatchDollar = TRUE,
+  warnPartialMatchAttr = TRUE
+)
+
+# fancy quotes are annoying and lead to
+# 'copy + paste' bugs / frustrations
+options(useFancyQuotes = FALSE)
+```
+
+Don't put analysis modifying options into your .Rprofile e.g. automatic loading of `tidyverse`. It will make the code you write less reproducible because it will start depending on these hidden settings, and it can make debugging harder.
+
+\
+
+#### Keyboard shortcuts
+
+The keyboard shortcut to rule them all: <kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>K</kbd>
+
+Other useful shortcuts
+
+Keys | produces
+---|---
+<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>M</kbd> | %>%
+<kbd>Alt</kbd> + <kbd>-</kbd> | <-
+<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>K</kbd> | knits Rmd
+<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>F10</kbd> | Restart R
+<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>I</kbd> | Insert code chunk
+<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd> | Source active file
+<kbd>Ctrl</kbd> + <kbd>.</kbd> | Go to file/function
+
+Make your own...
+
+Tools -> Modify Keyboard Shortcuts
 

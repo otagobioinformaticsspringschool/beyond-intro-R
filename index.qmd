@@ -7,7 +7,7 @@ editor: visual
 
 The goal of this workshop is to build upon "introductory content" that is found in other workshops such as [Data Carpentry - Data Analysis and Visualisation for Ecologists](https://datacarpentry.github.io/R-ecology-lesson/).
 
-The workshop itself is a bit piecemeal and cover a range of topics
+_The workshop itself is a bit piecemeal and covers a range of topics and is mostly designed as a source of quick reference for the instructor during the session_
 
 The key themes of the workshop are to:
 
